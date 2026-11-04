@@ -5,10 +5,13 @@ import math
 from concurrent.futures import ThreadPoolExecutor
 
 
-def fetch_all_NCBI_reports(taxon,page_size=1000):
+def fetch_all_NCBI_reports(taxon,true_refseq=True,page_size=1000):
     URL = f"https://api.ncbi.nlm.nih.gov/datasets/v2/genome/taxon/{taxon}/dataset_report"
     session = requests.Session()
-    params = {"page_size": page_size}
+    params = {"page_size": page_size,"filters.reference_only": "true"}
+    if true_refseq:
+        params["filters.assembly_source"] = "refseq"
+        
     reports = []
     while True:
         response = session.get(URL, params=params, timeout=60)
@@ -148,3 +151,6 @@ def fetch_and_fuse(taxon_id,fields_mapping):
 #all_res = fetch_and_fuse(7711,m.test1) # 9823 9606 #7711
 #print(all_res)
 #print(len(all_res))
+
+all_ncbi_true_ref = fetch_all_NCBI_reports(1)
+print(len(all_ncbi_true_ref))
