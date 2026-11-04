@@ -1,0 +1,66 @@
+PLANNING : 
+ciri dispo (julien sur place)
+
+if we have questions we can go to the ciri to directly work there and ask questions:
+this friday morning or afternoon
+
+or next week starting thursday
+
+(send mail to make a reservation)
+
+
+TODO LIST :
+
+1. minimal working version : (works only on multicellular eucaryotique organismes (other taxons might have a format too different))
+    a. get only the refference assemblies (or refseq) :done for NCBI (do for GWH)
+    b. use existing field mapping to create a selector in the app:
+        on a new page show all available values with a toggle menu
+        create an export button : exports in json format a dict that can be the input of fuse function
+        create an import button : import the json of the mapping fields
+        (the imported json will be the field mapping used for the app (if no import have a minimal default))
+    c. create on off toggle for the true refseq :
+        on ncbi when you filter by source (only refse)
+        you get less results than if you filter by reference_only (comes from the other db (databank ...))
+        i don't know yet why this difference, probably because for unexplored spiecies no refference was annotated by ncbi.
+
+        if you do a search on known spiecies you can use true refseq to not get too many results
+        but if you don't have many results you can turn tru refseq off to get more references annotations
+
+    d. raw data request :
+        get the raw ran sequencing data from sra (ask ciri for clarifications)
+        get the info from the ncbi report
+    e. make an export button that exports the raw data links in a json file
+
+    f. create an import button
+        import the results from the external pipeline (made by the user)
+        accept format compatible with the existing data structure
+             
+    g. outlier detection: (can come befor export import)
+        befor ranking you need to filter out the ourliers (stat extrème, taille extrème => erreurs)
+        method not spécified
+
+    h. ranking:
+        do an acp on different values and rank based on the principal composante
+
+### Improvements : 
+
+2. version that works with any tax level:
+    a. fetch with tax id 1:
+        1 is the root tax id, for NCBI preliminary test (true refseq) give 26k + results
+        the flatten function (takes the raw input and gives the 1d dict) can be applied to find all the possible parameters
+        an other existing function (might need modification) can be run to get from each (ncbi and gwh) an example per
+        parameter to determine the similarities between ncbi and gwh
+    b. specialized field mapping:
+        since virus and bacteria might have very different organisation compared to multicellular eucaryote
+        if the user wishes to only do the search on one of them they can preselect it and all the useless parameters
+        will be removed (less selection needed)
+    c. better export import :
+        for recurrent field mapping needs some mapping could be hard codded or made easier of acces
+        lets say the user already made 5, a local file could be created where the user names the field mapping (in the app)
+        and when he exports it it is added to the local file and can directly be retrieved in the app via that name
+        (no need to manually serch the json and import it) you can share this file with others so they already have
+        everything (no need to share each individual)
+
+3. embedding raw data filtering
+    add the raw data filtering via embeding ( probably won't be possible due to time limit)
+    details can be asked if we want to do it
