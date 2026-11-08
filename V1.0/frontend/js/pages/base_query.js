@@ -18,7 +18,7 @@ export function mount(el) {
       <aside class="module side">
         <h2>Field mapping</h2>
         <div id="list"></div>
-        <p class="hint">None selected = all fields.</p>
+        <p class="hint">Select a mapping, then press Search. Mappings are created on the Setup page.</p>
       </aside>
       <section class="main-col">
         <div class="actionbar">
@@ -43,29 +43,30 @@ export function mount(el) {
     module.replaceChildren(p);
   }
 
-  // Selecting a mapping only selects it: it is used by the next search.
+  // Selecting a mapping only selects it: the next search uses it (a mapping is required).
   const list = createMappingList(el.querySelector("#list"));
 
   const bar = createQueryBar(el.querySelector("#bar"), {
     onError: (msg) => setStatus(msg, true),
     onSearch: async ({ taxid, refseq }) => {
+      const mapping = list.getSelected();
+      if (mapping === null) {
+        setStatus("Select a field mapping first", true);
+        return;
+      }
       const myRequest = ++requestId;
       bar.setBusy(true);
       setStatus("Searching…");
-      const mapping = list.getSelected();
-      const params = { taxid, refseq };
-      if (mapping !== null) params.mapping = mapping;
       try {
-        const data = await getJSON("/api/ncbi/query", params);
+        const data = await getJSON("/api/ncbi/query", { taxid, refseq, mapping });
         if (myRequest !== requestId) return;
         if (table) { table.destroy(); table = null; }
-        const suffix = mapping !== null ? ` · mapping "${mapping}"` : " · all fields";
         if (data.total === 0) {
           showMessage("No reports found for this taxid.");
           setStatus("0 records");
         } else {
           table = createResultTable(module, { columns: data.columns, rows: Object.entries(data.rows) });
-          setStatus(`${data.total} records · ${data.columns.length} columns${suffix}`);
+          setStatus(`${data.total} records · ${data.columns.length} columns · mapping "${mapping}"`);
         }
       } catch (err) {
         if (myRequest !== requestId) return;

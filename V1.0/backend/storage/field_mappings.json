@@ -1,0 +1,55 @@
+{
+ "only stats": {
+  "total": 901,
+  "taxid": "7711",
+  "refseq": true,
+  "structure": {
+   "accession": 901,
+   "assembly_stats": {
+    "total_number_of_chromosomes": 701,
+    "total_sequence_length": 901,
+    "total_ungapped_length": 901,
+    "number_of_contigs": 901,
+    "contig_n50": 901,
+    "contig_l50": 901,
+    "number_of_scaffolds": 901,
+    "scaffold_n50": 901,
+    "scaffold_l50": 901,
+    "number_of_component_sequences": 901,
+    "atgc_count": 901,
+    "gc_count": 901,
+    "gc_percent": 901,
+    "genome_coverage": 893,
+    "number_of_organelles": 393,
+    "gaps_between_scaffolds_count": 12
+   },
+   "annotation_info": {
+    "name": 901,
+    "report_url": 800,
+    "stats": {
+     "gene_counts": {
+      "total": 901,
+      "protein_coding": 901,
+      "non_coding": 901,
+      "pseudogene": 901,
+      "other": 878
+     }
+    },
+    "busco": {
+     "busco_lineage": 896,
+     "busco_ver": 896,
+     "complete": 896,
+     "single_copy": 896,
+     "duplicated": 896,
+     "fragmented": 896,
+     "missing": 896,
+     "total_count": 896
+    },
+    "method": 901,
+    "pipeline": 901,
+    "software_version": 901,
+    "status": 901
+   }
+  }
+ }
+}

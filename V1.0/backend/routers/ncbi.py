@@ -18,10 +18,10 @@ def _reports(taxid, refseq):
 
 @router.get("/structure")
 def ncbi_structure(
-    taxid: str = Query(..., pattern=r"^\d+$"),
-    refseq: bool = True,
+    taxid: str = Query(..., pattern=r"^\d+$"), # accept only numbers
+    refseq: bool = True, # default is true refseq
 ):
-    """Setup page: count dict (structure) of the raw reports."""
+    # get the raw ncbi report, keep structure, replace non dict value with count (of all reports that have this key)
     reports = _reports(taxid, refseq)
     return {
         "taxid": taxid,
@@ -33,26 +33,18 @@ def ncbi_structure(
 
 @router.get("/query")
 def ncbi_query(
-    taxid: str = Query(..., pattern=r"^\d+$"),
+    taxid: str = Query(..., pattern=r"^\d+$"), # only numbers
+    mapping: str = Query(..., min_length=1), # mapping neccessary
     refseq: bool = True,
-    mapping: str | None = None,
 ):
-    """Base query page: {accession: {column: value}} limited to the mapping's fields."""
-    structure = None
-    if mapping:
-        # Resolve the mapping first, so a bad name fails before the slow NCBI fetch.
-        try:
-            structure = mappings.get(mapping)["structure"]
-        except mappings.NotFound:
-            raise HTTPException(status_code=404, detail=f'No mapping named "{mapping}"')
-        except mappings.StoreError as exc:
-            raise HTTPException(status_code=500, detail=str(exc))
+    
+    entry = mappings.get(mapping) # check if that request (taxid,refseq) was the last request done (use it, else do new ncbi request)
+    if entry is None:
+        raise HTTPException(status_code=404, detail=f'No mapping named "{mapping}"')
     reports = _reports(taxid, refseq)
-    columns, rows = build_table(reports, structure)
+    # flatten raw results, keep only mapping fields
+    columns, rows = build_table(reports, entry["structure"])
     return {
-        "taxid": taxid,
-        "refseq": refseq,
-        "mapping": mapping or None,
         "total": len(rows),
         "columns": columns,
         "rows": rows,
