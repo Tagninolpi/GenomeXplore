@@ -55,10 +55,70 @@ NCBI :
 - We ask NCBI to show all versions of a genome, not only the newest.
   Why: NCBI hides older versions by default, and then says "not found", even though they still exist with all their files (for example the dog's CanFam3.1).
 
-Organisation :
+- When no version is given, we keep the version marked "current".
 
-- I work on the branch feature/artifact-links.
 
-- The scripts are in artifact_links/
 
-- The test notebooks in test_artifact_links/ are pushed, with their results visible.
+GWH :
+
+
+- gwh_links.py only handles genomes submitted directly to GWH (accessions starting with GWH).
+  Why: GWH also keeps copies of NCBI genomes (GCA_/GCF_), but its copies usually only have the genome sequence. NCBI's own folder has more files, so for those genomes we use ncbi_links.py.
+
+- We use GWH's search service, not its public API.
+  Why: the public API doesn't know recent genomes (it found nothing for a 2025 grouper genome) and refuses accessions with a version number. The search service knows all of them, and it is the same one Colin uses, so both parts see the same data.
+
+- We don't trust the file links given by GWH's API.
+  Why: for the dog, the API gave links for the GFF, RNA and proteins, but they pointed to the folder, because these files don't exist. Reading the real folder showed only 2 files.
+
+- We remove the HTML from the accession given by GWH's search.
+
+- For GWH, gtf and the three report labels are always None.
+  Why: GWH never provides these files.
+
+
+
+ENSEMBL :
+
+
+- We use softmasked.fa.bgz for genome_fasta.
+  Why: Ensembl has the genome three times, differing in how repeated regions of DNA are marked (unmasked = not marked, softmasked = in lowercase letters, hardmasked = replaced by N). NCBI's genome file is soft-masked, so the same label means the same kind of file in both databases.
+
+- For the GFF and GTF, we use the .gz files, not the .bgz ones.
+
+- For the genome, RNA (cdna) and proteins (pep), we use .bgz.
+
+- We don't list the .fai, .gzi and .csi files.
+  Why: they are indexes, they are not data on their own.
+
+- For md5, we keep the md5sum.txt next to the genome (in genome/).
+  Why: Ensembl has two md5sum.txt files (one per sub-folder), and the md5 label can only hold one link.
+
+- For Ensembl, cds, feature_table and the three report labels are always None.
+  Why: Ensembl doesn't provide these files.
+
+- We accept GCA_ and GCF_ accessions.
+  Why: Ensembl mostly uses GCA_, but for some genomes it reuses NCBI's RefSeq annotation, and then the accession starts with GCF_.
+
+- When one genome has several annotations in Ensembl, we take Ensembl's own annotation, unless a specific folder is given.
+  Why: some genomes have one annotation made by Ensembl and another made by a different team, each in its own folder. Ensembl's own annotation is made the same way for all species, so it is easier to compare. Another one can still be chosen by giving its folder link.
+
+- We keep Ensembl genomes even when the same assembly is at NCBI.
+  Why: Ensembl annotates the sequence itself, with its own method (for the cat: 19,209 genes at Ensembl, 20,453 at NCBI RefSeq). Same DNA sequence, but different annotation files, so it is not a useless duplicate.
+
+
+Export :
+
+
+- The export is one JSON file for the whole selection, and each genome in it has its species name. We don't make one file per species.
+  Why: one file is simpler to make and to use: a researcher or a pipeline only has to open one file to get all the links of their selection. Since every genome has its species name, it is still easy to find all the genomes of one species, and splitting the file into one file per species later would only take a few lines of code if our supervisors prefer that. This is a choice to check with them.
+
+- Genomes that fail are listed in "problems" with their message, and the export carries on with the others.
+  Why: one wrong accession or one database not answering shouldn't stop the links of all the other genomes, and the researcher can see what is missing and why.
+
+-The file starts with its format name, its version and the date it was made. Why: for exports to be versioned and self-descriptive, and links can change over time, so the date tells when they were checked.
+
+- Each genome keeps the name of its database (source).
+  Why: the same accession can be in two databases with different files (the cat GCA_018350175.1 is at NCBI and at Ensembl with different annotations).
+
+- We wait 0.4 seconds between two genomes. Why: NCBI allows about 5 requests per second and we use 2 per genome.
