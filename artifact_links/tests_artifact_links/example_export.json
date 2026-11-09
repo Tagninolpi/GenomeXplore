@@ -1,0 +1,109 @@
+{
+  "format": "genomexplore-artifact-links",
+  "format_version": "1.0",
+  "created": "2026-11-09T12:30:54",
+  "genomes": [
+    {
+      "source": "NCBI",
+      "accession": "GCF_018350175.1",
+      "species": "Felis catus",
+      "links": {
+        "genome_fasta": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_genomic.fna.gz",
+        "gff": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_genomic.gff.gz",
+        "gtf": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_genomic.gtf.gz",
+        "cds": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_cds_from_genomic.fna.gz",
+        "rna": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_rna.fna.gz",
+        "protein": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_protein.faa.gz",
+        "feature_table": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_feature_table.txt.gz",
+        "assembly_report": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_assembly_report.txt",
+        "assembly_stats": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/GCF_018350175.1_F.catus_Fca126_mat1.0_assembly_stats.txt",
+        "annotation_report": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/Felis_catus_AR105_annotation_report.xml",
+        "md5": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/350/175/GCF_018350175.1_F.catus_Fca126_mat1.0/md5checksums.txt"
+      }
+    },
+    {
+      "source": "NCBI",
+      "accession": "GCA_018350175.1",
+      "species": "Felis catus",
+      "links": {
+        "genome_fasta": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/018/350/175/GCA_018350175.1_F.catus_Fca126_mat1.0/GCA_018350175.1_F.catus_Fca126_mat1.0_genomic.fna.gz",
+        "gff": null,
+        "gtf": null,
+        "cds": null,
+        "rna": null,
+        "protein": null,
+        "feature_table": null,
+        "assembly_report": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/018/350/175/GCA_018350175.1_F.catus_Fca126_mat1.0/GCA_018350175.1_F.catus_Fca126_mat1.0_assembly_report.txt",
+        "assembly_stats": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/018/350/175/GCA_018350175.1_F.catus_Fca126_mat1.0/GCA_018350175.1_F.catus_Fca126_mat1.0_assembly_stats.txt",
+        "annotation_report": null,
+        "md5": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/018/350/175/GCA_018350175.1_F.catus_Fca126_mat1.0/md5checksums.txt"
+      }
+    },
+    {
+      "source": "GWH",
+      "accession": "GWHBHRQ00000000",
+      "species": "Rhinopithecus bieti",
+      "links": {
+        "genome_fasta": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000.genome.fasta.gz",
+        "gff": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000.gff.gz",
+        "gtf": null,
+        "cds": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000.CDS.fasta.gz",
+        "rna": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000.RNA.fasta.gz",
+        "protein": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000.Protein.faa.gz",
+        "feature_table": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000.feature.gz",
+        "assembly_report": null,
+        "assembly_stats": null,
+        "annotation_report": null,
+        "md5": "https://download.cncb.ac.cn/gwh/Animals/Rhinopithecus_bieti_R.bieti-PacBio-HiC-GenomeAssembly_GWHBHRQ00000000/GWHBHRQ00000000_md5.txt"
+      }
+    },
+    {
+      "source": "GWH",
+      "accession": "GWHBJIX01000000",
+      "species": "Canis lupus familiaris",
+      "links": {
+        "genome_fasta": "https://download.cncb.ac.cn/gwh/Animals/Canis_lupus_familiaris_TM_705_501_GWHBJIX01000000/GWHBJIX01000000.genome.fasta.gz",
+        "gff": null,
+        "gtf": null,
+        "cds": null,
+        "rna": null,
+        "protein": null,
+        "feature_table": null,
+        "assembly_report": null,
+        "assembly_stats": null,
+        "annotation_report": null,
+        "md5": "https://download.cncb.ac.cn/gwh/Animals/Canis_lupus_familiaris_TM_705_501_GWHBJIX01000000/GWHBJIX01000000_md5.txt"
+      }
+    },
+    {
+      "source": "Ensembl",
+      "accession": "GCA_018350175.1",
+      "species": "Felis catus",
+      "links": {
+        "genome_fasta": "http://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/018/350/175/1/ensembl/2021_08/genome/softmasked.fa.bgz",
+        "gff": "http://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/018/350/175/1/ensembl/2021_08/geneset/genes.gff3.gz",
+        "gtf": "http://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/018/350/175/1/ensembl/2021_08/geneset/genes.gtf.gz",
+        "cds": null,
+        "rna": "http://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/018/350/175/1/ensembl/2021_08/geneset/cdna.fa.bgz",
+        "protein": "http://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/018/350/175/1/ensembl/2021_08/geneset/pep.fa.bgz",
+        "feature_table": null,
+        "assembly_report": null,
+        "assembly_stats": null,
+        "annotation_report": null,
+        "md5": "http://ftp.ebi.ac.uk/pub/ensemblorganisms/GCA/018/350/175/1/ensembl/2021_08/genome/md5sum.txt"
+      }
+    }
+  ],
+  "problems": [
+    {
+      "source": "NCBI",
+      "accession": "GCF_999999999.1",
+      "message": "GCF_999999999.1 was not found on NCBI"
+    },
+    {
+      "source": "UCSC",
+      "accession": "felCat9",
+      "message": "unknown database 'UCSC' (expected NCBI, GWH or Ensembl)"
+    }
+  ]
+}
