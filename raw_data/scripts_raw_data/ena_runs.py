@@ -27,8 +27,34 @@ MISSING_WORDS = {
     "na", "n/a", "none", "-",
 }
 
+# The data types (library strategies) ENA knows, copied from
+# https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=library_strategy (2026-11-09).
+# ENA does not refuse an unknown data type, it just finds 0 runs, so we check it ourselves.
+DATA_TYPES = [
+    "AMPLICON", "ATAC-seq", "Bisulfite-Seq", "CLONE", "CLONEEND", "CTS", "ChIA-PET", "ChIP-Seq",
+    "ChM-Seq", "DNase-Hypersensitivity", "EST", "FAIRE-seq", "FINISHING", "FL-cDNA", "GBS", "Hi-C",
+    "MBD-Seq", "MNase-Seq", "MRE-Seq", "MeDIP-Seq", "NOMe-Seq", "OTHER", "POOLCLONE", "RAD-Seq",
+    "RIP-Seq", "RNA-Seq", "Ribo-Seq", "SELEX", "Synthetic-Long-Read", "Targeted-Capture",
+    "Tethered Chromatin Conformation Capture", "Tn-Seq", "VALIDATION", "WCS", "WGA", "WGS", "WXS",
+    "miRNA-Seq", "ncRNA-Seq", "snRNA-seq", "ssRNA-seq",
+]
+
 # Big species have millions of runs, MAX_RUNS is the maximum number of runs we can ask for at once
 MAX_RUNS = 5000
+
+
+def check_data_type(data_type):
+    """Give back the data type written exactly like ENA writes it ("rna-seq" -> "RNA-Seq").
+
+    ENA needs the exact spelling, so we accept any upper/lower case and correct it.
+    A data type ENA doesn't know at all ("RNAseq") is refused with a clear message.
+    """
+    for known in DATA_TYPES:
+        if data_type.strip().lower() == known.lower():
+            return known
+    raise LinkError(
+        f'"{data_type}" is not a data type known by ENA (e.g. RNA-Seq, ChIP-Seq, Hi-C, WGS)'
+    )
 
 
 def build_query(taxid, data_type):
@@ -100,6 +126,7 @@ def ena_runs(taxid, data_type="RNA-Seq", max_runs=MAX_RUNS):
     taxid = str(taxid).strip()
     if not taxid.isdigit():
         raise LinkError(f'"{taxid}" is not a valid taxid (it must be a number, e.g. 9685)')
+    data_type = check_data_type(data_type)
 
     total = count_runs(taxid, data_type)
     runs = []
