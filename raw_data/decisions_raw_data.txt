@@ -1,0 +1,62 @@
+Decisions taken during the construction of raw_data/ :
+
+Goal: for each species, find the raw sequencing data (RNA-seq first) with its metadata and the links to the reads files, so researchers can choose and download them later.
+
+
+
+General choices :
+
+
+- We never download the reads files (FASTQ), only their links.
+
+- We get the runs from ENA, not directly from SRA.
+  Why: SRA (NCBI), ENA (EBI) and DDBJ (Japan) exchange their data every day, so ENA also has the runs of SRA and DDBJ. For the cat RNA-seq, ENA gives 1,873 runs from SRA (SRR), 69 from DDBJ (DRR) and 58 from ENA (ERR). ENA's API gives the metadata and the links to the files in one simple JSON answer. SRA's own API answers in XML, needs several steps and gives no direct link to FASTQ files.
+
+- We reuse fetch and LinkError from artifact_links/scripts_artifact_links/common.py.
+  Why: the requests need the same things as for the genomes (a time limit, trying again when the server has a problem, clear messages), so it is written only once.
+
+- We search by the exact taxid of the species (tax_eq).
+  Why: we want the runs of one species. I haven't checked yet if this misses runs saved under a subspecies.
+
+- The data type can be chosen, and it is RNA-Seq by default.
+  Why: the subject asks for RNA-seq first, then other types like ChIP-seq or Hi-C. The same function works for all of them.
+
+- We check the data type against ENA's list of data types, and upper or lower case doesn't matter.
+  Why: ENA doesn't refuse a data type with a typo. "RNAseq" instead of "RNA-Seq" just gives 0 runs, which looks like the species has no data. Now it gives a clear message instead.
+
+- We check that the taxid is a number before asking ENA.
+  Why: ENA answers with an error 500 for something like "abc".
+
+- A taxid that doesn't exist gives 0 runs, not an error.
+  Why: ENA just answers an empty list, and a real species can also have no runs.
+
+- We first ask ENA how many runs there are, and we never ask for more than 5,000 runs at once.
+  Why: some species have millions of runs (2.9 million RNA-seq runs for human, 2.6 million for mouse). 10,000 runs already take about 15 seconds. The result says "complete": False when we only got part of the runs, so nobody thinks they have everything. These runs are just the first ones ENA sends, not a representative sample: this is still to solve for big species.
+
+
+
+Reads files :
+
+
+- The files of a run are kept as a list, each with its link, its size and its md5.
+  Why: a run can have 1 file (single-end), 2 files (paired-end, _1 and _2) or sometimes 3 (for the cat: 608, 1,295 and 97 runs). ENA gives them in one text separated by ";", which is not easy to use. The size shows how big a file is before downloading it, and the md5 is used to check the download.
+
+- We add "https://" at the start of the links.
+  Why: ENA gives the paths without it. I tested that the links work with https.
+
+
+
+Metadata :
+
+
+- For each run we keep the run, study and sample accessions, the study and sample titles, tissue_type, cell_type, dev_stage, sex, the layout, the sequencing machine, the number of reads and the number of bases.
+  Why: the subject asks for the tissue, the condition, the layout, the platform and the depth. The condition (a disease, an age) is often only written in the study title, so we keep the titles too.
+
+- We put tissue_type, cell_type, dev_stage and sex in lower case.
+  Why: the same value is written in different ways ("Left ventricle" and "left ventricle", "Adult" and "adult"), and would be counted as two different values.
+
+- Words like "missing", "unknown" or "NA" become None.
+  Why: some people write "missing" instead of leaving the field empty (54 times in dev_stage for the cat).
+
+- We keep "pooled male and female" in sex.
+  Why: it is not an error, it means the sample mixes several animals.
