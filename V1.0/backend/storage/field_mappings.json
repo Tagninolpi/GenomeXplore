@@ -51,5 +51,424 @@
     "status": 901
    }
   }
+ },
+ "test1": {
+  "total": 901,
+  "taxid": "7711",
+  "refseq": true,
+  "structure": {
+   "accession": 901,
+   "current_accession": 901,
+   "paired_accession": 901,
+   "source_database": 901,
+   "assembly_stats": {
+    "total_number_of_chromosomes": 701,
+    "total_sequence_length": 901,
+    "total_ungapped_length": 901,
+    "number_of_contigs": 901,
+    "contig_n50": 901,
+    "contig_l50": 901,
+    "number_of_scaffolds": 901,
+    "scaffold_n50": 901,
+    "scaffold_l50": 901,
+    "number_of_component_sequences": 901,
+    "atgc_count": 901,
+    "gc_count": 901,
+    "gc_percent": 901,
+    "genome_coverage": 893,
+    "number_of_organelles": 393,
+    "gaps_between_scaffolds_count": 12
+   },
+   "annotation_info": {
+    "name": 901,
+    "provider": 901,
+    "release_date": 901,
+    "report_url": 800,
+    "stats": {
+     "gene_counts": {
+      "total": 901,
+      "protein_coding": 901,
+      "non_coding": 901,
+      "pseudogene": 901,
+      "other": 878
+     }
+    },
+    "busco": {
+     "busco_lineage": 896,
+     "busco_ver": 896,
+     "complete": 896,
+     "single_copy": 896,
+     "duplicated": 896,
+     "fragmented": 896,
+     "missing": 896,
+     "total_count": 896
+    },
+    "method": 901,
+    "pipeline": 901,
+    "software_version": 901,
+    "status": 901
+   }
+  }
+ },
+ "hum": {
+  "total": 1,
+  "taxid": "9606",
+  "refseq": true,
+  "structure": {
+   "accession": 1,
+   "current_accession": 1,
+   "paired_accession": 1,
+   "source_database": 1,
+   "annotation_info": {
+    "name": 1,
+    "provider": 1,
+    "report_url": 1,
+    "method": 1,
+    "pipeline": 1,
+    "software_version": 1,
+    "status": 1
+   }
+  }
+ },
+ "test acp": {
+  "total": 901,
+  "taxid": "7711",
+  "refseq": true,
+  "structure": {
+   "assembly_stats": {
+    "total_number_of_chromosomes": 701,
+    "total_sequence_length": 901,
+    "total_ungapped_length": 901,
+    "number_of_contigs": 901,
+    "contig_n50": 901,
+    "contig_l50": 901,
+    "number_of_scaffolds": 901,
+    "scaffold_n50": 901,
+    "scaffold_l50": 901,
+    "number_of_component_sequences": 901,
+    "atgc_count": 901,
+    "gc_count": 901,
+    "gc_percent": 901,
+    "genome_coverage": 893,
+    "number_of_organelles": 393,
+    "gaps_between_scaffolds_count": 12
+   },
+   "annotation_info": {
+    "stats": {
+     "gene_counts": {
+      "total": 901,
+      "protein_coding": 901,
+      "non_coding": 901,
+      "pseudogene": 901,
+      "other": 878
+     }
+    },
+    "busco": {
+     "busco_lineage": 896,
+     "busco_ver": 896,
+     "complete": 896,
+     "single_copy": 896,
+     "duplicated": 896,
+     "fragmented": 896,
+     "missing": 896,
+     "total_count": 896
+    }
+   }
+  }
+ },
+ "all": {
+  "total": 901,
+  "taxid": "7711",
+  "refseq": true,
+  "structure": {
+   "accession": 901,
+   "current_accession": 901,
+   "paired_accession": 901,
+   "source_database": 901,
+   "organism": {
+    "tax_id": 901,
+    "organism_name": 901,
+    "common_name": 751,
+    "infraspecific_names": {
+     "ecotype": 61,
+     "strain": 37,
+     "isolate": 585,
+     "sex": 567,
+     "breed": 33,
+     "cultivar": 1
+    }
+   },
+   "assembly_info": {
+    "assembly_level": 901,
+    "assembly_status": 901,
+    "paired_assembly": {
+     "accession": 901,
+     "status": 901,
+     "only_refseq": 291,
+     "refseq_genbank_are_different": 648,
+     "differences": 648,
+     "only_genbank": 329,
+     "changed": 38,
+     "annotation_name": 69,
+     "manual_diff": 1
+    },
+    "assembly_name": 901,
+    "assembly_type": 901,
+    "bioproject_lineage": 901,
+    "bioproject_accession": 901,
+    "release_date": 901,
+    "submitter": 900,
+    "refseq_category": 901,
+    "sequencing_tech": 895,
+    "assembly_method": 895,
+    "biosample": {
+     "accession": 899,
+     "last_updated": 899,
+     "publication_date": 899,
+     "submission_date": 899,
+     "sample_ids": 895,
+     "description": {
+      "title": 899,
+      "organism": {
+       "tax_id": 899,
+       "organism_name": 899
+      },
+      "comment": 303
+     },
+     "owner": {
+      "name": 898,
+      "contacts": 609
+     },
+     "models": 899,
+     "bioprojects": 367,
+     "package": 899,
+     "attributes": 894,
+     "status": {
+      "status": 899,
+      "when": 899
+     },
+     "collection_date": 610,
+     "dev_stage": 498,
+     "ecotype": 107,
+     "geo_loc_name": 672,
+     "sex": 831,
+     "strain": 86,
+     "tissue": 773,
+     "age": 205,
+     "isolate": 606,
+     "breed": 90,
+     "biomaterial_provider": 330,
+     "isolation_source": 74,
+     "cultivar": 39,
+     "collected_by": 423,
+     "lat_lon": 261,
+     "sample_name": 232,
+     "identified_by": 159,
+     "project_name": 164,
+     "host": 2,
+     "host_disease": 1,
+     "isolate_name_alias": 2
+    },
+    "blast_url": 901,
+    "comments": 887,
+    "description": 7,
+    "synonym": 12,
+    "atypical": {
+     "is_atypical": 1,
+     "warnings": 1
+    },
+    "genome_notes": 1
+   },
+   "assembly_stats": {
+    "total_number_of_chromosomes": 702,
+    "total_sequence_length": 901,
+    "total_ungapped_length": 901,
+    "number_of_contigs": 901,
+    "contig_n50": 901,
+    "contig_l50": 901,
+    "number_of_scaffolds": 901,
+    "scaffold_n50": 901,
+    "scaffold_l50": 901,
+    "number_of_component_sequences": 901,
+    "atgc_count": 901,
+    "gc_count": 901,
+    "gc_percent": 901,
+    "genome_coverage": 893,
+    "number_of_organelles": 392,
+    "gaps_between_scaffolds_count": 12
+   },
+   "organelle_info": 392,
+   "additional_submitters": 329,
+   "annotation_info": {
+    "name": 900,
+    "provider": 900,
+    "release_date": 900,
+    "report_url": 799,
+    "stats": {
+     "gene_counts": {
+      "total": 900,
+      "protein_coding": 900,
+      "non_coding": 900,
+      "pseudogene": 900,
+      "other": 877
+     }
+    },
+    "busco": {
+     "busco_lineage": 895,
+     "busco_ver": 895,
+     "complete": 895,
+     "single_copy": 895,
+     "duplicated": 895,
+     "fragmented": 895,
+     "missing": 895,
+     "total_count": 895
+    },
+    "method": 900,
+    "pipeline": 900,
+    "software_version": 900,
+    "status": 900
+   },
+   "wgs_info": {
+    "wgs_project_accession": 889,
+    "master_wgs_url": 889,
+    "wgs_contigs_url": 889
+   }
+  }
+ },
+ "minimal human": {
+  "total": 1,
+  "taxid": "9606",
+  "refseq": true,
+  "structure": {
+   "accession": 1,
+   "current_accession": 1,
+   "paired_accession": 1,
+   "source_database": 1
+  }
+ },
+ "chat all": {
+  "total": 1,
+  "taxid": "9685",
+  "refseq": true,
+  "structure": {
+   "accession": 1,
+   "current_accession": 1,
+   "paired_accession": 1,
+   "source_database": 1,
+   "organism": {
+    "tax_id": 1,
+    "organism_name": 1,
+    "common_name": 1,
+    "infraspecific_names": {
+     "isolate": 1,
+     "sex": 1
+    }
+   },
+   "assembly_info": {
+    "assembly_level": 1,
+    "assembly_status": 1,
+    "paired_assembly": {
+     "accession": 1,
+     "status": 1,
+     "only_refseq": 1,
+     "refseq_genbank_are_different": 1,
+     "differences": 1
+    },
+    "assembly_name": 1,
+    "assembly_type": 1,
+    "bioproject_lineage": 1,
+    "bioproject_accession": 1,
+    "release_date": 1,
+    "submitter": 1,
+    "refseq_category": 1,
+    "sequencing_tech": 1,
+    "assembly_method": 1,
+    "biosample": {
+     "accession": 1,
+     "last_updated": 1,
+     "publication_date": 1,
+     "submission_date": 1,
+     "sample_ids": 1,
+     "description": {
+      "title": 1,
+      "organism": {
+       "tax_id": 1,
+       "organism_name": 1
+      }
+     },
+     "owner": {
+      "name": 1,
+      "contacts": 1
+     },
+     "models": 1,
+     "bioprojects": 1,
+     "package": 1,
+     "attributes": 1,
+     "status": {
+      "status": 1,
+      "when": 1
+     },
+     "dev_stage": 1,
+     "isolate": 1,
+     "sex": 1,
+     "tissue": 1
+    },
+    "blast_url": 1,
+    "comments": 1
+   },
+   "assembly_stats": {
+    "total_number_of_chromosomes": 1,
+    "total_sequence_length": 1,
+    "total_ungapped_length": 1,
+    "number_of_contigs": 1,
+    "contig_n50": 1,
+    "contig_l50": 1,
+    "number_of_scaffolds": 1,
+    "scaffold_n50": 1,
+    "scaffold_l50": 1,
+    "number_of_component_sequences": 1,
+    "atgc_count": 1,
+    "gc_count": 1,
+    "gc_percent": 1,
+    "genome_coverage": 1,
+    "number_of_organelles": 1
+   },
+   "organelle_info": 1,
+   "additional_submitters": 1,
+   "annotation_info": {
+    "name": 1,
+    "provider": 1,
+    "release_date": 1,
+    "report_url": 1,
+    "stats": {
+     "gene_counts": {
+      "total": 1,
+      "protein_coding": 1,
+      "non_coding": 1,
+      "pseudogene": 1,
+      "other": 1
+     }
+    },
+    "busco": {
+     "busco_lineage": 1,
+     "busco_ver": 1,
+     "complete": 1,
+     "single_copy": 1,
+     "duplicated": 1,
+     "fragmented": 1,
+     "missing": 1,
+     "total_count": 1
+    },
+    "method": 1,
+    "pipeline": 1,
+    "software_version": 1,
+    "status": 1
+   },
+   "wgs_info": {
+    "wgs_project_accession": 1,
+    "master_wgs_url": 1,
+    "wgs_contigs_url": 1
+   }
+  }
  }
 }

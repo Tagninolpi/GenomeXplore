@@ -33,14 +33,14 @@ def list_mappings():
     return mappings.list_all()
 
 @router.post("")
-    def create_mapping(body: MappingIn):
-        error = structure_error(body.structure, body.total)
-        if error:
-            raise HTTPException(status_code=422, detail=error)
-        entry = body.model_dump(exclude={"name"})
-        if not mappings.add(body.name, entry):
-            raise HTTPException(status_code=409, detail=f'A mapping named "{body.name}" already exists')
-        return {"name": body.name, **entry}
+def create_mapping(body: MappingIn):
+    error = structure_error(body.structure, body.total)
+    if error:
+        raise HTTPException(status_code=422, detail=error)
+    entry = body.model_dump(exclude={"name"})
+    if not mappings.add(body.name, entry):
+        raise HTTPException(status_code=409, detail=f'A mapping named "{body.name}" already exists')
+    return {"name": body.name, **entry}
 
 
 @router.delete("", status_code=204)

@@ -1,13 +1,16 @@
-// To add a page: create js/pages/<name>.js exporting `id`, `title` and
-// `mount(container)` (optionally returning a cleanup function), then add it here.
+// To add a page: create js/pages/<name>.js exporting `id`, `title` and `mount(container)'
 import * as setupFieldMapping from "./pages/setup_field_mapping.js";
 import * as baseQuery from "./pages/base_query.js";
 
-const PAGES = [setupFieldMapping, baseQuery];   // the first one is the default page
+const PAGES = [setupFieldMapping, baseQuery];
+
+// setupFieldMapping.id = ./pages/setup_field_mapping.js
+// .title = page menu text
+// .mount = container that can build the page 
 
 const nav = document.getElementById("nav");
 const view = document.getElementById("view");
-let cleanup;                                    // cleanup function of the page on screen, if it has one
+let cleanup;
 
 // Menu: one link per page.
 for (const page of PAGES) {
@@ -19,7 +22,7 @@ for (const page of PAGES) {
 }
 
 function show() {
-  const id = location.hash.slice(2);            // "#/base-query" -> "base-query"
+  const id = location.hash.slice(2); // "#/base-query" -> "base-query"
   const page = PAGES.find((p) => p.id === id) ?? PAGES[0];
 
   // Put the real address in the URL when it was empty or unknown (no hashchange fires for this).

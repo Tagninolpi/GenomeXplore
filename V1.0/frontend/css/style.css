@@ -180,8 +180,6 @@ button.toggle[aria-pressed="true"] {
   padding: 0 10px;
   border-bottom: 1px solid var(--border);
   text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .result-table th { height: 36px; background: var(--bg); font-weight: 600; }
@@ -204,3 +202,16 @@ button.toggle[aria-pressed="true"] {
   color: var(--text-muted);
 }
 .pager button { height: 32px; padding: 0 14px; }
+
+
+.import-report {
+  max-width: 480px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+.import-report h3 { margin: 0 0 6px; font-size: 13px; }
+.import-report pre { max-height: 200px; overflow: auto; margin: 0 0 14px; font-size: 12px; }
+.import-report form { text-align: right; }

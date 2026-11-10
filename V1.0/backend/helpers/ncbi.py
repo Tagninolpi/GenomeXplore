@@ -35,3 +35,6 @@ def fetch_all_NCBI_reports(taxon, true_refseq=True, page_size=1000):
         params["page_token"] = token     # asks for the next page on the next round
         #print(f"{len(reports)} / {data.get('total_count', '?')}")
     return reports
+
+
+#print(len(fetch_all_NCBI_reports(33208)))

@@ -89,6 +89,7 @@ export function mount(el) {
     },
   });
 
+  // expor field mapping : name + mapping from manual selection
   async function exportMapping() {
     const name = nameInput.value.trim();
     if (!name) {
