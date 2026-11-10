@@ -49,7 +49,7 @@ Reads files :
 Metadata :
 
 
-- For each run we keep the run, study and sample accessions, the study and sample titles, tissue_type, cell_type, dev_stage, sex, the layout, the sequencing machine, the number of reads and the number of bases.
+- For each run we keep the run, study and sample accessions, the study and sample titles, tissue_type, cell_type, dev_stage, sex, the layout, the library source, the sequencing machine, the number of reads and the number of bases.
   Why: the subject asks for the tissue, the condition, the layout, the platform and the depth. The condition (a disease, an age) is often only written in the study title, so we keep the titles too.
 
 - We put tissue_type, cell_type, dev_stage and sex in lower case.
@@ -60,3 +60,40 @@ Metadata :
 
 - We keep "pooled male and female" in sex.
   Why: it is not an error, it means the sample mixes several animals.
+
+
+
+Choosing the representative runs (select_runs.py) :
+
+
+- For now we choose the runs with simple rules, not with embeddings.
+
+- We remove the runs that have no FASTQ file or less than 1 billion bases.
+  Why: a run without a file can't be downloaded, and very small runs are probably tests or very targeted experiments (the smallest cat run has only 10 million bases, the middle one 6.6 billion). For the cat, 1,613 runs out of 2,000 are left. The threshold can be changed, and I still have to check it with the supervisors.
+
+- We also remove the runs whose material is not the normal RNA of the species' tissues: METATRANSCRIPTOMIC, METAGENOMIC and SINGLE CELL runs (ENA's library_source field).
+  How I found it: when I made the first export, the cat kidney run chosen came from a study called "Single cell atlas for mammals, reptiles and birds". I then looked at the library_source field of ENA, which says what the RNA or DNA comes from. For the cat RNA-seq, 1,881 runs are TRANSCRIPTOMIC (normal RNA-seq), 70 are METATRANSCRIPTOMIC (the RNA of the microbes living in the sample, for example gut bacteria, not the cat's own RNA), 31 are TRANSCRIPTOMIC SINGLE CELL and 18 are METAGENOMIC (microbe DNA). For the Egyptian fruit bat, 116 runs out of 361 are single cell, so a third.
+  Why: microbe runs don't tell anything about the species' genes. Single-cell data is made in a very different way from normal (bulk) RNA-seq (with the most common methods, the reads only cover one end of the genes and carry cell barcodes), so it can't be used the same way, for example to annotate a genome. With this filter, 1,541 cat runs are left instead of 1,613, and the bat goes from 241 to 187.
+  Limit: the field is filled by the submitters and is not always right. The cat kidney run that made me look is from a single-cell atlas but is marked as TRANSCRIPTOMIC, so it is still chosen. Removing every run whose study title contains "single cell" would be possible, but I didn't do it yet because a title can mention single cell without the run being single cell.
+
+- Inside each tissue, paired-end runs come before single-end runs, then the deepest come first.
+  Why: paired-end reads give more information (two ends of each fragment), and more reads help to find rare transcripts. This is a temporary choice: it picks very big runs (up to 169.5 billion bases for the cat, the biggest of the 2,000 runs), so we may prefer runs close to the usual depth of the species instead. I'm waiting for the supervisors' answer.
+
+- We take one run per tissue, and each time from a study not used yet if possible.
+  Why: for the cat, the 2,000 runs come from only 204 (study, tissue) pairs. Most runs are replicates of the same experiment (one study alone has 131 whole blood runs), so taking the first 10 runs could give 10 times the same sample.
+
+- The tissues studied by the most different studies are chosen first, and runs without a tissue come last.
+  Why: there are 132 tissue names for the cat, so we have to choose which ones. A tissue studied by many teams (kidney, heart, liver...) is common, so it is easier to compare between species.
+
+- If there are not enough studies, we can take a study already used, but only for a new tissue.
+  Why: some species have few studies (the Egyptian fruit bat: 10 runs from only 4 studies), and we still want up to 10 runs.
+
+- We never take two runs of the same study and the same tissue, even if it means stopping with fewer than 10 runs.
+  Why: these runs are replicates of the same experiment, so they would add almost nothing. At first, the script filled up the selection with replicates when nothing else was left. Now it stops instead: for example, with a minimum of 50 billion bases, 12 bat runs are left, and only 4 are chosen. 10 is a maximum, not a number we must reach.
+  Limit: this rule also skips runs of the same study and tissue that have a different condition (for example a control and an infected sample in the cat kidney study PRJNA668739). These runs would be really different, but the condition is only written in the sample title ("CRFK_Ctrl_T0_R1", "CRFK_Infec_T17_R1"), in a different way in each study, so simple rules can't see it. I keep the rule for now because it is simple and safe, and the embeddings could fix this later.
+
+- Each chosen run says why it was chosen (the round, the tissue and the study rule).
+  Why: the export must explain the selection method, and it helps to check that the choice makes sense.
+
+- Synonyms are not merged yet ("blood" and "peripheral blood" count as two tissues).
+  Why: lower case is not enough for this. It would need a list of synonyms or the embeddings.

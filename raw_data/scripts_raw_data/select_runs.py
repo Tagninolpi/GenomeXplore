@@ -7,15 +7,22 @@ The 3 steps:
 1. remove the runs that are not useful (no FASTQ file, or too small);
 2. inside each tissue, sort the runs from best to worst (paired-end first, then the deepest);
 3. take one run per tissue, in rounds, each time from a study not used yet if possible.
+   We never take two runs of the same study and the same tissue (they are replicates),
+   so we can stop with fewer than 10 runs.
 """
 
 MAX_RUNS = 10
 MIN_BASES = 1_000_000_000  # 1 billion bases: smaller runs are removed
 
+# Runs whose material is not RNA/DNA of the species' tissue are removed:
+EXCLUDED_SOURCES = {"METATRANSCRIPTOMIC", "METAGENOMIC", "TRANSCRIPTOMIC SINGLE CELL", "GENOMIC SINGLE CELL"}
+
 
 def is_useful(run, min_bases):
-    """A run is kept if it has at least one FASTQ file and enough bases."""
-    return bool(run["fastq"]) and run["base_count"] is not None and run["base_count"] >= min_bases
+    """A run is kept if it has at least one FASTQ file, enough bases, and the right kind of material."""
+    return (bool(run["fastq"])
+            and run["base_count"] is not None and run["base_count"] >= min_bases
+            and run.get("library_source") not in EXCLUDED_SOURCES)
 
 
 def best_first(run):
@@ -43,7 +50,8 @@ def pick_one(candidates, used_studies, used_pairs):
 
     Best: a run from a study not used yet.
     Otherwise: a run from a (study, tissue) pair not used yet.
-    Otherwise: the best run left.
+    Otherwise: nothing (None, None), because the runs left are only replicates
+    of a study and tissue we already have, and they would add almost nothing.
     """
     for run in candidates:
         if run["study_accession"] not in used_studies:
@@ -51,7 +59,7 @@ def pick_one(candidates, used_studies, used_pairs):
     for run in candidates:
         if (run["study_accession"], run["tissue_type"]) not in used_pairs:
             return run, "from a study already used, but not for this tissue"
-    return candidates[0], "from a study and tissue already used (no other choice)"
+    return None, None
 
 
 def select_runs(runs, max_runs=MAX_RUNS, min_bases=MIN_BASES):
@@ -91,17 +99,20 @@ def select_runs(runs, max_runs=MAX_RUNS, min_bases=MIN_BASES):
             if not candidates:
                 continue  # every run of this tissue is already taken
             run, why = pick_one(candidates, used_studies, used_pairs)
+            if run is None:
+                continue  # only replicates left for this tissue
             selected.append({**run, "reason": f"round {round_number}: tissue {tissue!r}, {why}"})
             used_runs.add(run["run_accession"])
             used_studies.add(run["study_accession"])
             used_pairs.add((run["study_accession"], run["tissue_type"]))
             added_this_round += 1
         if added_this_round == 0:
-            break  # no run left at all (fewer useful runs than max_runs)
+            break  # nothing new to add: we stop, even with fewer than max_runs runs
 
     return {
         "method": "rules",
-        "settings": {"max_runs": max_runs, "min_bases": min_bases},
+        "settings": {"max_runs": max_runs, "min_bases": min_bases,
+                     "excluded_sources": sorted(EXCLUDED_SOURCES)},
         "runs_given": len(runs),
         "runs_useful": len(useful),
         "selected": selected,

@@ -14,7 +14,7 @@ COUNT_URL = "https://www.ebi.ac.uk/ena/portal/api/count"
 FIELDS = [
     "run_accession", "study_accession", "sample_accession", "study_title", "sample_title",
     "tissue_type", "cell_type", "dev_stage", "sex",
-    "library_layout", "instrument_model", "read_count", "base_count",
+    "library_layout", "library_source", "instrument_model", "read_count", "base_count",
     "fastq_ftp", "fastq_bytes", "fastq_md5",
 ]
 
@@ -104,6 +104,7 @@ def clean_run(run):
         "study_title": run["study_title"] or None,
         "sample_title": run["sample_title"] or None,
         "layout": run["library_layout"] or None,
+        "library_source": run["library_source"] or None,
         "instrument": run["instrument_model"] or None,
         "read_count": int(run["read_count"]) if run["read_count"] else None,
         "base_count": int(run["base_count"]) if run["base_count"] else None,
