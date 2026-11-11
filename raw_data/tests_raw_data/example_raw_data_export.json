@@ -1,0 +1,1081 @@
+{
+  "format": "genomexplore-raw-data",
+  "format_version": "1.0",
+  "created": "2026-11-09T18:53:28",
+  "selection": {
+    "method": "rules",
+    "source": "ENA (also contains the runs of SRA and DDBJ)",
+    "data_types": [
+      "RNA-Seq",
+      "Hi-C"
+    ],
+    "max_runs": 10,
+    "min_bases": 1000000000,
+    "excluded_sources": [
+      "GENOMIC SINGLE CELL",
+      "METAGENOMIC",
+      "METATRANSCRIPTOMIC",
+      "TRANSCRIPTOMIC SINGLE CELL"
+    ]
+  },
+  "species": [
+    {
+      "taxid": "9685",
+      "species": "Felis catus",
+      "data_type": "RNA-Seq",
+      "total_runs": 2000,
+      "complete": true,
+      "runs_useful": 1541,
+      "runs": [
+        {
+          "run_accession": "SRR15199661",
+          "study_accession": "PRJNA747757",
+          "sample_accession": "SAMN20218752",
+          "study_title": "Single cell atlas for mammals, reptiles and birds",
+          "sample_title": "Model organism or animal sample from Felis catus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "BGISEQ-500",
+          "read_count": 679187212,
+          "base_count": 86935963136,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR151/061/SRR15199661/SRR15199661_1.fastq.gz",
+              "size": 16931580774,
+              "md5": "43c2ffafea608d8410592571e4184071"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR151/061/SRR15199661/SRR15199661_2.fastq.gz",
+              "size": 48557055071,
+              "md5": "ee2818390ed4e983ccdca0c69831be66"
+            }
+          ],
+          "tissue_type": "kidney",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": "female",
+          "reason": "round 1: tissue 'kidney', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR3200471",
+          "study_accession": "PRJNA312519",
+          "sample_accession": "SAMN04498521",
+          "study_title": "Felis catus Raw sequence reads",
+          "sample_title": "Aquaman",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 107724558,
+          "base_count": 26931139500,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/001/SRR3200471/SRR3200471_1.fastq.gz",
+              "size": 6924998563,
+              "md5": "5d2cbe5ca3de99631e720f7c928daa4f"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/001/SRR3200471/SRR3200471_2.fastq.gz",
+              "size": 6612367314,
+              "md5": "8393ed4da1b600e769e3fbf2ea9d1c29"
+            }
+          ],
+          "tissue_type": "heart",
+          "cell_type": null,
+          "dev_stage": "terminal",
+          "sex": "male",
+          "reason": "round 1: tissue 'heart', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR35438978",
+          "study_accession": "PRJNA1330231",
+          "sample_accession": "SAMN51481739",
+          "study_title": "Fatal consequences of feline coronavirus infection are associated with virus persistence and a distinct adaptive immune repertoire",
+          "sample_title": "Model organism or animal sample from Felis catus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 182391272,
+          "base_count": 55082164144,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR354/078/SRR35438978/SRR35438978_1.fastq.gz",
+              "size": 12330164926,
+              "md5": "79076bf567a098ae217b984fa9e41900"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR354/078/SRR35438978/SRR35438978_2.fastq.gz",
+              "size": 12661030345,
+              "md5": "b592ec41326ae99448eeb8ecc5f6edc6"
+            }
+          ],
+          "tissue_type": "lung",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": "female",
+          "reason": "round 1: tissue 'lung', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR21657517",
+          "study_accession": "PRJNA882763",
+          "sample_accession": "SAMN30950749",
+          "study_title": "RNAseq data from healthy feline tissues",
+          "sample_title": "Felis catus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "NextSeq 500",
+          "read_count": 45738241,
+          "base_count": 13721472300,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR216/017/SRR21657517/SRR21657517_1.fastq.gz",
+              "size": 2853564748,
+              "md5": "8d24dd89af5355b6ee1a80150bc83aaf"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR216/017/SRR21657517/SRR21657517_2.fastq.gz",
+              "size": 3015166596,
+              "md5": "715d62e536d256c2633dd5bfd854cd00"
+            }
+          ],
+          "tissue_type": "liver",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": "male",
+          "reason": "round 1: tissue 'liver', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR23085858",
+          "study_accession": "PRJNA924061",
+          "sample_accession": "SAMN32745306",
+          "study_title": "Endogenous feline leukemia virus long terminal repeat integration site diversity seeds functional genomic variation",
+          "sample_title": "Cat DC1 FeLV-infected RNAseq",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 61400399,
+          "base_count": 18542920498,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR230/058/SRR23085858/SRR23085858_1.fastq.gz",
+              "size": 2656892070,
+              "md5": "290988a6b088fe87838d2d2abd156277"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR230/058/SRR23085858/SRR23085858_2.fastq.gz",
+              "size": 2707466489,
+              "md5": "5c7a4b5c62deba555f3dfb7d322b602e"
+            }
+          ],
+          "tissue_type": "skin",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'skin', from a study not used yet"
+        },
+        {
+          "run_accession": "DRR487133",
+          "study_accession": "PRJDB15955",
+          "sample_accession": "SAMD00621739",
+          "study_title": "Domestic cat (Felis catus) fetusues whole genome sequence and RNA-seq",
+          "sample_title": "Domestic cat (Felis catus) random bred fetus #4 small intestine",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 43655811,
+          "base_count": 13096743300,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/DRR487/DRR487133/DRR487133_1.fastq.gz",
+              "size": 3141275825,
+              "md5": "ab28f4945822e19e62eb9f75013654f3"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/DRR487/DRR487133/DRR487133_2.fastq.gz",
+              "size": 3236618117,
+              "md5": "e8e83aab6b8e9b10e3536107d59b6fe2"
+            }
+          ],
+          "tissue_type": "small intestine",
+          "cell_type": null,
+          "dev_stage": "fetus",
+          "sex": null,
+          "reason": "round 1: tissue 'small intestine', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR14251502",
+          "study_accession": "PRJNA721786",
+          "sample_accession": "SAMN18738582",
+          "study_title": "Felis catus (Senzu) stranded RNA-seq of blood",
+          "sample_title": "Felis catus (Senzu)",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 61567356,
+          "base_count": 18470206800,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/002/SRR14251502/SRR14251502_1.fastq.gz",
+              "size": 3392942924,
+              "md5": "d14ad35d1822106123db18f2fd52f654"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR142/002/SRR14251502/SRR14251502_2.fastq.gz",
+              "size": 3463566846,
+              "md5": "bf5d3d249e476dad2c1a1828f335d4f5"
+            }
+          ],
+          "tissue_type": "blood",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": "female",
+          "reason": "round 1: tissue 'blood', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR3200469",
+          "study_accession": "PRJNA312519",
+          "sample_accession": "SAMN04498520",
+          "study_title": "Felis catus Raw sequence reads",
+          "sample_title": "Aquaman",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 83078528,
+          "base_count": 20769632000,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/009/SRR3200469/SRR3200469_1.fastq.gz",
+              "size": 4934926191,
+              "md5": "b0c9656011641ffbbc115b29938eb95b"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/009/SRR3200469/SRR3200469_2.fastq.gz",
+              "size": 4870018920,
+              "md5": "b1fcad2823e13d8f6ab6c58b36aaf12f"
+            }
+          ],
+          "tissue_type": "pancreas",
+          "cell_type": null,
+          "dev_stage": "terminal",
+          "sex": "male",
+          "reason": "round 1: tissue 'pancreas', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR2495945",
+          "study_accession": "PRJNA296557",
+          "sample_accession": "SAMN04100432",
+          "study_title": "Felis catus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Felis catus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 678107246,
+          "base_count": 169526811500,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR249/005/SRR2495945/SRR2495945_1.fastq.gz",
+              "size": 55501675517,
+              "md5": "95fee319832d1de36465a1af0d5451f4"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR249/005/SRR2495945/SRR2495945_2.fastq.gz",
+              "size": 58887132259,
+              "md5": "a9969f27701daa2b2656f1ec538928cb"
+            }
+          ],
+          "tissue_type": "brain",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": "pooled male and female",
+          "reason": "round 1: tissue 'brain', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR11939416",
+          "study_accession": "PRJNA637678",
+          "sample_accession": "SAMN15150111",
+          "study_title": "A Pig Body Map Transcriptome Uncovers Diverse Organ Physiology with emphasis on skeletal muscle and adipose tissues and Evolutionary Dynamics of Transcription",
+          "sample_title": "lncRNA sequencing Cat2-Spleen biological replicate 2",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "HiSeq X Ten",
+          "read_count": 41772713,
+          "base_count": 12531813900,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR119/016/SRR11939416/SRR11939416_1.fastq.gz",
+              "size": 2849882220,
+              "md5": "9601f8daa157c98f13c4b41898af9939"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR119/016/SRR11939416/SRR11939416_2.fastq.gz",
+              "size": 3158654626,
+              "md5": "55d0fa749b7b18822fe8b6115b6d6582"
+            }
+          ],
+          "tissue_type": "spleen",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "female",
+          "reason": "round 1: tissue 'spleen', from a study not used yet"
+        }
+      ]
+    },
+    {
+      "taxid": "9685",
+      "species": "Felis catus",
+      "data_type": "Hi-C",
+      "total_runs": 14,
+      "complete": true,
+      "runs_useful": 14,
+      "runs": [
+        {
+          "run_accession": "SRR14145940",
+          "study_accession": "PRJNA719825",
+          "sample_accession": "SAMN18620476",
+          "study_title": "Hi-C Data from male domestic cat fibroblast and sorted germ cell",
+          "sample_title": "pach-1",
+          "layout": "PAIRED",
+          "library_source": "GENOMIC",
+          "instrument": "HiSeq X Ten",
+          "read_count": 482988240,
+          "base_count": 144896472000,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR141/040/SRR14145940/SRR14145940_1.fastq.gz",
+              "size": 30043312359,
+              "md5": "30b09bc42facdf3b25f6fd7f0f8c1462"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR141/040/SRR14145940/SRR14145940_2.fastq.gz",
+              "size": 32796627860,
+              "md5": "a3faf108112b58c35fd1084b56dad4da"
+            }
+          ],
+          "tissue_type": "sorted germ cells",
+          "cell_type": "pachytene spermatocytes",
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'sorted germ cells', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR14145941",
+          "study_accession": "PRJNA719825",
+          "sample_accession": "SAMN18620475",
+          "study_title": "Hi-C Data from male domestic cat fibroblast and sorted germ cell",
+          "sample_title": "fca-4415_malefibro",
+          "layout": "PAIRED",
+          "library_source": "GENOMIC",
+          "instrument": "HiSeq X Ten",
+          "read_count": 468664493,
+          "base_count": 140599347900,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR141/041/SRR14145941/SRR14145941_1.fastq.gz",
+              "size": 33060526774,
+              "md5": "6d2fa8ab4d5699dab082ce0af7666ff0"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR141/041/SRR14145941/SRR14145941_2.fastq.gz",
+              "size": 34607042235,
+              "md5": "5905d4dc1bef59dba20b46d74b51be2a"
+            }
+          ],
+          "tissue_type": "cell line",
+          "cell_type": "fibroblasts",
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'cell line', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR12511411",
+          "study_accession": "PRJNA637678",
+          "sample_accession": "SAMN15870124",
+          "study_title": "A Pig Body Map Transcriptome Uncovers Diverse Organ Physiology with emphasis on skeletal muscle and adipose tissues and Evolutionary Dynamics of Transcription",
+          "sample_title": "Hi-C data of Cat sequenced by NovaSeq-6000",
+          "layout": "PAIRED",
+          "library_source": "GENOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 596180999,
+          "base_count": 178854299700,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR125/011/SRR12511411/SRR12511411_1.fastq.gz",
+              "size": 42677034734,
+              "md5": "d2ed756d67d4cb7da5b93eec11b2d91c"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR125/011/SRR12511411/SRR12511411_2.fastq.gz",
+              "size": 45197925196,
+              "md5": "ac4bcc370809bad2cfaff08ddf0d3dc7"
+            }
+          ],
+          "tissue_type": "back fat",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "female",
+          "reason": "round 1: tissue 'back fat', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR13786569",
+          "study_accession": "PRJNA704984",
+          "sample_accession": "SAMN18060216",
+          "study_title": "Comparative 3D Genome Architecture in Vertebrates (Hi-C)",
+          "sample_title": "Hi-C data of Cat replicate 1",
+          "layout": "PAIRED",
+          "library_source": "GENOMIC",
+          "instrument": "HiSeq X Ten",
+          "read_count": 163819720,
+          "base_count": 49145916000,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR137/069/SRR13786569/SRR13786569_1.fastq.gz",
+              "size": 13791085972,
+              "md5": "c416e508ddb116f3b713b9f849cebb54"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR137/069/SRR13786569/SRR13786569_2.fastq.gz",
+              "size": 15766395637,
+              "md5": "c6555f18f391a1e73c9a54760692df8c"
+            }
+          ],
+          "tissue_type": null,
+          "cell_type": "fibroblasts",
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue None, from a study not used yet"
+        }
+      ]
+    },
+    {
+      "taxid": "9407",
+      "species": "Rousettus aegyptiacus",
+      "data_type": "RNA-Seq",
+      "total_runs": 361,
+      "complete": true,
+      "runs_useful": 187,
+      "runs": [
+        {
+          "run_accession": "SRR2914360",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262214",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 71479965,
+          "base_count": 17869991250,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/000/SRR2914360/SRR2914360_1.fastq.gz",
+              "size": 6797736912,
+              "md5": "6fee205b112d6be8b4499c5f4f8a05c6"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/000/SRR2914360/SRR2914360_2.fastq.gz",
+              "size": 6811508383,
+              "md5": "0992c779043c33a1f42b84207f2332f7"
+            }
+          ],
+          "tissue_type": "kidney",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'kidney', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR35797469",
+          "study_accession": "PRJNA1344459",
+          "sample_accession": "SAMN52643515",
+          "study_title": "Egyptian rousette bat (ERB) and human macrophage responses to MARV and SUDV",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "SINGLE",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq X Plus",
+          "read_count": 194936387,
+          "base_count": 58480916100,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR357/069/SRR35797469/SRR35797469_1.fastq.gz",
+              "size": 13287081140,
+              "md5": "e48fc590fd78ab402af8b3c40d9dcd8f"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR357/069/SRR35797469/SRR35797469_2.fastq.gz",
+              "size": 13882922622,
+              "md5": "25dd244979d9144c651cbded03ee4a5b"
+            }
+          ],
+          "tissue_type": "bone marrow",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'bone marrow', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR2914368",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262216",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 88473284,
+          "base_count": 22118321000,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/008/SRR2914368/SRR2914368_1.fastq.gz",
+              "size": 8445126933,
+              "md5": "7ea16c969b713ee4a6da00f9e5beef92"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/008/SRR2914368/SRR2914368_2.fastq.gz",
+              "size": 8365495968,
+              "md5": "cc684b3f10a1e6e3ad4ba4375b3c2897"
+            }
+          ],
+          "tissue_type": "axillary lymph nodes",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'axillary lymph nodes', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR2914295",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262212",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 75380817,
+          "base_count": 18845204250,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/005/SRR2914295/SRR2914295_1.fastq.gz",
+              "size": 7218393029,
+              "md5": "f836039a05f8c87327b15516053f29b1"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/005/SRR2914295/SRR2914295_2.fastq.gz",
+              "size": 7046483929,
+              "md5": "4e81217226509c2ebeebdbf9a00bf6e4"
+            }
+          ],
+          "tissue_type": "brain",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'brain', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR16761642",
+          "study_accession": "PRJNA777475",
+          "sample_accession": "SAMN22863333",
+          "study_title": "Vocal learning-associated convergent evolution in mammalian regulatory elements and proteins",
+          "sample_title": "Bat6_Caudate_rna",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 190922704,
+          "base_count": 57276811200,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR167/042/SRR16761642/SRR16761642_1.fastq.gz",
+              "size": 13234760338,
+              "md5": "0c68148f1b83ef029f80553b9b64e823"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR167/042/SRR16761642/SRR16761642_2.fastq.gz",
+              "size": 13363783863,
+              "md5": "866004b6457607c46e5bff065960be99"
+            }
+          ],
+          "tissue_type": "caudate nucleus of the basal ganglia",
+          "cell_type": "bulk tissue",
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'caudate nucleus of the basal ganglia', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR2914359",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262213",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 20043000,
+          "base_count": 5010750000,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/009/SRR2914359/SRR2914359_1.fastq.gz",
+              "size": 1818305537,
+              "md5": "49df8514c8cca93ec286846c6dfddc55"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/009/SRR2914359/SRR2914359_2.fastq.gz",
+              "size": 1781271041,
+              "md5": "20e0c28fdb877773e20b54c28bf2b413"
+            }
+          ],
+          "tissue_type": "heart",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'heart', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR2914059",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262207",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 89972351,
+          "base_count": 22493087750,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/009/SRR2914059/SRR2914059_1.fastq.gz",
+              "size": 8557336143,
+              "md5": "40ec3c2a1ce0406925147707c39fc465"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/009/SRR2914059/SRR2914059_2.fastq.gz",
+              "size": 8301016219,
+              "md5": "c169a4dfe9300f594e21d9c828d0ce66"
+            }
+          ],
+          "tissue_type": "liver",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "female",
+          "reason": "round 1: tissue 'liver', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR2913598",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262205",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 77512352,
+          "base_count": 19378088000,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/008/SRR2913598/SRR2913598_1.fastq.gz",
+              "size": 7508602296,
+              "md5": "27e1df029dbe7c0017312bcc5bf13dbb"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/008/SRR2913598/SRR2913598_2.fastq.gz",
+              "size": 7345945572,
+              "md5": "5e46fb2f79b249c7f6e6a776c6eb2d6a"
+            }
+          ],
+          "tissue_type": "lung",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "female",
+          "reason": "round 1: tissue 'lung', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR32671429",
+          "study_accession": "PRJNA1235284",
+          "sample_accession": "SAMN47326265",
+          "study_title": "Bat organoids reveal antiviral responses at epithelial surfaces",
+          "sample_title": "Pooled Bulk RNA-seq bat nasal organoids interferon",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 60780707,
+          "base_count": 10332720190,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR326/029/SRR32671429/SRR32671429_1.fastq.gz",
+              "size": 997133350,
+              "md5": "beb75b8a292aafd579d0fc75cbbd6355"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR326/029/SRR32671429/SRR32671429_2.fastq.gz",
+              "size": 3493281577,
+              "md5": "45b138220ee41dbe87587ca635649105"
+            }
+          ],
+          "tissue_type": "nasal epithelium",
+          "cell_type": "epithelial cells",
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'nasal epithelium', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR2914370",
+          "study_accession": "PRJNA300284",
+          "sample_accession": "SAMN04262218",
+          "study_title": "Rousettus aegyptiacus Transcriptome or Gene expression",
+          "sample_title": "Model organism or animal sample from Rousettus aegyptiacus",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 2500",
+          "read_count": 92745418,
+          "base_count": 23186354500,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/000/SRR2914370/SRR2914370_1.fastq.gz",
+              "size": 8266633285,
+              "md5": "aa975de3f4ac69bec1557d5cb031e1ca"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR291/000/SRR2914370/SRR2914370_2.fastq.gz",
+              "size": 8040141217,
+              "md5": "aea6da3125826c33f1ef3f08557ad739"
+            }
+          ],
+          "tissue_type": "peripheral blood (pbmc)",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'peripheral blood (pbmc)', from a study already used, but not for this tissue"
+        }
+      ]
+    },
+    {
+      "taxid": "9407",
+      "species": "Rousettus aegyptiacus",
+      "data_type": "Hi-C",
+      "total_runs": 0,
+      "complete": true,
+      "runs_useful": 0,
+      "runs": []
+    },
+    {
+      "taxid": "59479",
+      "species": "Rhinolophus ferrumequinum",
+      "data_type": "RNA-Seq",
+      "total_runs": 202,
+      "complete": true,
+      "runs_useful": 200,
+      "runs": [
+        {
+          "run_accession": "SRR12006243",
+          "study_accession": "PRJNA638701",
+          "sample_accession": "SAMN15228249",
+          "study_title": "Rhinolophus ferrumequinum Transcriptome or Gene expression",
+          "sample_title": "Rhinolophus ferrumequinum Transcriptome LA_S1",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "HiSeq X Ten",
+          "read_count": 25755518,
+          "base_count": 7508000405,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR120/043/SRR12006243/SRR12006243_1.fastq.gz",
+              "size": 1543225193,
+              "md5": "f89f2bd7e2d8606fa002fe44ce72db42"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR120/043/SRR12006243/SRR12006243_2.fastq.gz",
+              "size": 1533146611,
+              "md5": "218b35e311e19a3d7f6286dc43735318"
+            }
+          ],
+          "tissue_type": "intestine",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'intestine', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR15914614",
+          "study_accession": "PRJNA763798",
+          "sample_accession": "SAMN21450398",
+          "study_title": "transcriptome of Rhinolophus ferrumequinum",
+          "sample_title": "Model organism or animal sample from Rhinolophus ferrumequinum",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina HiSeq 4000",
+          "read_count": 27194053,
+          "base_count": 8158215900,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR159/014/SRR15914614/SRR15914614_1.fastq.gz",
+              "size": 1860080857,
+              "md5": "eaf1ecd8b27e5e49a5dad85f513b03fe"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR159/014/SRR15914614/SRR15914614_2.fastq.gz",
+              "size": 1978436757,
+              "md5": "ebde6f55df74fded1601fefc3a9a4bde"
+            }
+          ],
+          "tissue_type": "wing",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'wing', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR32088007",
+          "study_accession": "PRJNA1214407",
+          "sample_accession": "SAMN46371910",
+          "study_title": "Discovery and characterization of zoonotic viruses with multi-species, multi-organ bat organoids (bulk RNA-seq)",
+          "sample_title": "Rf-1T_MRV_1d_2",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 15039827,
+          "base_count": 3038045054,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/007/SRR32088007/SRR32088007_1.fastq.gz",
+              "size": 691850439,
+              "md5": "53b9d26448707befe07fc58eeaa1b59a"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/007/SRR32088007/SRR32088007_2.fastq.gz",
+              "size": 683539595,
+              "md5": "affd026778e725967ae91e776a39be5c"
+            }
+          ],
+          "tissue_type": "trachea",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'trachea', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR8453471",
+          "study_accession": "PRJNA515764",
+          "sample_accession": "SAMN10768511",
+          "study_title": "The great horseshoe bat transcriptome",
+          "sample_title": "Model organism or animal sample from Rhinolophus ferrumequinum",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "HiSeq X Ten",
+          "read_count": 18048125,
+          "base_count": 5414437500,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR845/001/SRR8453471/SRR8453471_1.fastq.gz",
+              "size": 1647329838,
+              "md5": "0c063a830be25ae386d866775b6d6be8"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR845/001/SRR8453471/SRR8453471_2.fastq.gz",
+              "size": 1821097593,
+              "md5": "4b5c60a1e792ee8a28b9c5d93ae452f7"
+            }
+          ],
+          "tissue_type": "cochlear",
+          "cell_type": null,
+          "dev_stage": "adult",
+          "sex": "male",
+          "reason": "round 1: tissue 'cochlear', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR30257347",
+          "study_accession": "PRJNA1148653",
+          "sample_accession": "SAMN43208090",
+          "study_title": "Abortive infection of bat fibroblasts with SARS-CoV-2",
+          "sample_title": "BF_Infected2 8hrs",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 29412620,
+          "base_count": 3000087240,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR302/047/SRR30257347/SRR30257347_1.fastq.gz",
+              "size": 839127145,
+              "md5": "d39cfbb8761790af3e236148974a2aa3"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR302/047/SRR30257347/SRR30257347_2.fastq.gz",
+              "size": 867870557,
+              "md5": "887b5f71d02f5287ba43404f9ab271d8"
+            }
+          ],
+          "tissue_type": "primary cells",
+          "cell_type": "fibroblast cells",
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'primary cells', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR32088028",
+          "study_accession": "PRJNA1214407",
+          "sample_accession": "SAMN46371891",
+          "study_title": "Discovery and characterization of zoonotic viruses with multi-species, multi-organ bat organoids (bulk RNA-seq)",
+          "sample_title": "Rf-1B_MERS_2d_1",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 18162621,
+          "base_count": 3668849442,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/028/SRR32088028/SRR32088028_1.fastq.gz",
+              "size": 833519059,
+              "md5": "0899f699889c3ef960d03f0237f2cecd"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/028/SRR32088028/SRR32088028_2.fastq.gz",
+              "size": 835372150,
+              "md5": "52bae7ca23364fa3c03d993c5e03e662"
+            }
+          ],
+          "tissue_type": "bronchi/alveoli",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'bronchi/alveoli', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR32087999",
+          "study_accession": "PRJNA1214407",
+          "sample_accession": "SAMN46371917",
+          "study_title": "Discovery and characterization of zoonotic viruses with multi-species, multi-organ bat organoids (bulk RNA-seq)",
+          "sample_title": "Rf-1_KiO_un-3",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 13856792,
+          "base_count": 2799071984,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/099/SRR32087999/SRR32087999_1.fastq.gz",
+              "size": 641602281,
+              "md5": "d226029f1cda2120d2f29adb6a6e9f5c"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/099/SRR32087999/SRR32087999_2.fastq.gz",
+              "size": 630009086,
+              "md5": "952c067412fd76dc707f14979ce75106"
+            }
+          ],
+          "tissue_type": "kidney",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'kidney', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR32087988",
+          "study_accession": "PRJNA1214407",
+          "sample_accession": "SAMN46371927",
+          "study_title": "Discovery and characterization of zoonotic viruses with multi-species, multi-organ bat organoids (bulk RNA-seq)",
+          "sample_title": "Rf-1_sIO_ShVl_1d_1",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 14191774,
+          "base_count": 2866738348,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/088/SRR32087988/SRR32087988_1.fastq.gz",
+              "size": 670881138,
+              "md5": "ebfd34c9ab58bf9ab7acaf2312d673e6"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR320/088/SRR32087988/SRR32087988_2.fastq.gz",
+              "size": 658958755,
+              "md5": "80b772fd09c48aeec2be37df2ce4eba1"
+            }
+          ],
+          "tissue_type": "small intestine",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'small intestine', from a study already used, but not for this tissue"
+        },
+        {
+          "run_accession": "SRR36723776",
+          "study_accession": "PRJNA1399947",
+          "sample_accession": "SAMN54509362",
+          "study_title": "GEO accession GSE315916 is currently private and is scheduled to be released on Jan 08, 2030.",
+          "sample_title": "Spleen, Winter Active state, WAT1 (bio rep 1)",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 36590040,
+          "base_count": 10925029590,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR367/076/SRR36723776/SRR36723776_1.fastq.gz",
+              "size": 2907029975,
+              "md5": "340359711a430129b09a8c5ea33cf73c"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR367/076/SRR36723776/SRR36723776_2.fastq.gz",
+              "size": 2602394666,
+              "md5": "840c91d5467a871d1f285e2064d18854"
+            }
+          ],
+          "tissue_type": "spleen",
+          "cell_type": null,
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'spleen', from a study not used yet"
+        },
+        {
+          "run_accession": "SRR30257352",
+          "study_accession": "PRJNA1148653",
+          "sample_accession": "SAMN43208095",
+          "study_title": "Abortive infection of bat fibroblasts with SARS-CoV-2",
+          "sample_title": "Bat_iPSCs_Uninfected_1 48hrs",
+          "layout": "PAIRED",
+          "library_source": "TRANSCRIPTOMIC",
+          "instrument": "Illumina NovaSeq 6000",
+          "read_count": 29324969,
+          "base_count": 2991146838,
+          "fastq": [
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR302/052/SRR30257352/SRR30257352_1.fastq.gz",
+              "size": 825881735,
+              "md5": "ba4f4667d76f75d0f829bbd6510a99e6"
+            },
+            {
+              "url": "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR302/052/SRR30257352/SRR30257352_2.fastq.gz",
+              "size": 838407799,
+              "md5": "9196ff1b2e2aebc31d4adb965a356064"
+            }
+          ],
+          "tissue_type": "ipscs reprogrammed from fibroblast",
+          "cell_type": "stem cell",
+          "dev_stage": null,
+          "sex": null,
+          "reason": "round 1: tissue 'ipscs reprogrammed from fibroblast', from a study already used, but not for this tissue"
+        }
+      ]
+    },
+    {
+      "taxid": "59479",
+      "species": "Rhinolophus ferrumequinum",
+      "data_type": "Hi-C",
+      "total_runs": 0,
+      "complete": true,
+      "runs_useful": 0,
+      "runs": []
+    }
+  ],
+  "problems": [
+    {
+      "taxid": "cat",
+      "species": "typo",
+      "data_type": "RNA-Seq",
+      "message": "\"cat\" is not a valid taxid (it must be a number, e.g. 9685)"
+    },
+    {
+      "taxid": "cat",
+      "species": "typo",
+      "data_type": "Hi-C",
+      "message": "\"cat\" is not a valid taxid (it must be a number, e.g. 9685)"
+    }
+  ]
+}
