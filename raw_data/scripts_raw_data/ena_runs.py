@@ -4,7 +4,9 @@ ENA also contains the runs of SRA and DDBJ,
 so one request covers the three databases. GSA (China) is not included.
 """
 
-from artifact_links.scripts_artifact_links.common import LinkError, fetch
+import time
+
+from artifact_links.scripts_artifact_links.common import ATTEMPTS, LinkError, fetch
 
 SOURCE = "ENA"
 SEARCH_URL = "https://www.ebi.ac.uk/ena/portal/api/search"
@@ -115,6 +117,19 @@ def clean_run(run):
     return clean
 
 
+def get_run_list(params, data_type):
+    """Ask ENA for the list of runs, and try again if the answer arrives cut off."""
+    for attempt in range(1, ATTEMPTS + 1):
+        answer = fetch(SEARCH_URL, f"list of {data_type} runs", SOURCE, params=params)
+        try:
+            return answer.json()
+        except ValueError:  # the text is not complete JSON
+            if attempt < ATTEMPTS:
+                time.sleep(2 * attempt)  # wait 2s, then 4s... before trying again
+    raise LinkError(f"{SOURCE} sent an incomplete list of {data_type} runs {ATTEMPTS} times "
+                    "(its server may be overloaded, try again later)")
+
+
 def ena_runs(taxid, data_type="RNA-Seq", max_runs=MAX_RUNS):
     """Get the runs of one species (taxid) for one data type (RNA-Seq, ChIP-Seq, Hi-C...).
 
@@ -139,8 +154,7 @@ def ena_runs(taxid, data_type="RNA-Seq", max_runs=MAX_RUNS):
             "limit": min(total, max_runs),
             "format": "json",
         }
-        answer = fetch(SEARCH_URL, f"list of {data_type} runs", SOURCE, params=params)
-        runs = [clean_run(run) for run in answer.json()]
+        runs = [clean_run(run) for run in get_run_list(params, data_type)]
 
     return {
         "source": SOURCE,
