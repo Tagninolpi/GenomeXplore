@@ -33,6 +33,14 @@ General choices :
 - We first ask ENA how many runs there are, and we never ask for more than 5,000 runs at once.
   Why: some species have millions of runs (2.9 million RNA-seq runs for human, 2.6 million for mouse). 10,000 runs already take about 15 seconds. The result says "complete": False when we only got part of the runs, so nobody thinks they have everything. These runs are just the first ones ENA sends, not a representative sample: this is still to solve for big species.
 
+- When ENA sends a list of runs that is cut off in the middle, we ask again (up to 3 times, waiting 2 seconds, then 4 seconds), and then give a clear message.
+  How I found it: on 2026-11-12, while testing the final export, ENA's server was overloaded and its answer stopped after the first run. The text was not complete JSON, so the script crashed with "JSONDecodeError", which means nothing to a user. fetch couldn't see it, because the answer itself was "OK" (code 200), only incomplete.
+  Why: it is the same idea as fetch trying again when the server has a problem. I tested it by simulating a cut-off answer: cut once then complete gives the runs, cut 3 times gives "ENA sent an incomplete list of RNA-Seq runs 3 times (its server may be overloaded, try again later)".
+
+- We keep the 30 seconds time limit of fetch, even though ENA can be very slow.
+  Why: the limit is the time to wait for each new piece of the answer, not for the whole answer. So when ENA is slow but keeps sending, the script waits instead of failing. On 2026-11-12, the cat runs took about 8 minutes instead of 3 seconds, and the final export test took almost 10 minutes.
+  Limit: if ENA is slow like this for many species, a big selection could take hours. I'm not sure yet what to do about it (a total time limit, or saving the answers already received).
+
 
 
 Reads files :
