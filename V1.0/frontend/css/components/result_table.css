@@ -1,0 +1,32 @@
+/* result_table.js: paged result table and its Previous / Next pager. */
+
+.table-scroll { overflow-x: auto; overflow-y: hidden; }
+.result-table { table-layout: fixed; border-collapse: collapse; font-size: 12px; }
+.result-table th,
+.result-table td {
+  height: 32px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+.result-table th { height: 36px; background: var(--bg); font-weight: 600; }
+.result-table th:first-child,
+.result-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+.result-table th:first-child { background: var(--bg); }
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.pager button { height: 32px; padding: 0 14px; }

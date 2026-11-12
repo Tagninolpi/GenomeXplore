@@ -1,0 +1,7 @@
+/* setup_field_mapping.js: Remove button under the mapping list, name + Export bar. */
+
+.side-btn { width: 100%; height: 34px; }
+.side-btn:not(:disabled) { color: var(--danger); border-color: var(--danger); }
+.exportbar { display: flex; gap: 8px; margin-top: 12px; }
+.exportbar input { flex: 1; max-width: 360px; }
+.exportbar button { height: 36px; padding: 0 16px; }

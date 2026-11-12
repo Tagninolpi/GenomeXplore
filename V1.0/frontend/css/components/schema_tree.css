@@ -1,0 +1,48 @@
+/* schema_tree.js: field tree, colour legend and hover tooltip. */
+
+.tree-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.legend { display: flex; align-items: center; gap: 6px; }
+.legend .swatches { display: flex; gap: 2px; }
+.legend .swatches span { width: 18px; height: 6px; border-radius: 2px; }
+.tree-scroll { overflow-x: auto; padding-bottom: 6px; }
+.tree { position: relative; }
+.tree svg { position: absolute; left: 0; top: 0; pointer-events: none; }
+.tree .key {
+  position: absolute;
+  height: 26px;
+  padding: 0 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+.tree .key.off {
+  color: var(--text-muted);
+  border-style: dashed;
+  opacity: .65;
+}
+
+.tree-tip {
+  position: fixed;
+  z-index: 100;
+  max-width: 380px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 12px;
+  line-height: 1.4;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+}
+.tree-tip .tip-path { font: 600 12px ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.tree-tip .tip-hint { opacity: .65; margin-top: 2px; }
