@@ -1,0 +1,9 @@
+# Core scripts
+
+| File             | What it does                                                                                                                                                                                                                                  |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app.js`         | Builds the menu from the list of pages and shows the page matching the URL (`#/page-id`). When the page changes, it cleans up the old page and mounts the new one. **To add a page**: create `js/pages/<name>.js` exporting `id`, `title` and `mount(container)`, then add it to `PAGES`. |
+| `api.js`         | The only place that talks to the backend: `getJSON`, `postJSON`, `deleteJSON`, all with the same format. It turns server errors into readable messages.                                                                                        |
+| `store.js`       | Keeps the saved field mappings in memory, shared by both pages. They are fetched once, and the local copy is updated only after the backend confirms an add or a delete, so both always agree.                                                |
+| `ui.js`          | Small helper to write (or clear) the status line of a page, optionally as an error.                                                                                                                                                           |
+| `import_data.js` | Merges an imported JSON file (`{accession: {column: value}}`) into the table on screen as new columns. Nothing is sent to the backend. Returns the accessions that could not be matched, shown in a popup report.                              |

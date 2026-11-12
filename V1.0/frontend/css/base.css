@@ -1,0 +1,49 @@
+/* Global foundation: colour variables (light/dark), reset, default look of inputs and buttons.
+   Loaded first, everything else builds on it. */
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --text: #1f1f1d;
+  --text-muted: #8a8a85;
+  --border: #d9d8d2;
+  --accent: #2f6fdb;
+  --danger: #c23b3b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1b19;
+    --surface: #262624;
+    --text: #ecebe6;
+    --text-muted: #8f8e88;
+    --border: #3d3d39;
+    --accent: #6c9cf0;
+    --danger: #e87474;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+input[type="text"] {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--text-muted); }
+button:disabled { opacity: .6; cursor: default; }

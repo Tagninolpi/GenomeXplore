@@ -1,0 +1,11 @@
+/* query_bar.js: taxid input, RefSeq toggle, Search button. */
+
+.searchbar { display: flex; gap: 8px; margin-bottom: 12px; }
+.searchbar input { flex: 1; max-width: 360px; }
+.searchbar button { height: 36px; padding: 0 16px; }
+button.toggle { height: 36px; padding: 0 14px; }
+button.toggle[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}

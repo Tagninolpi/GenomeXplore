@@ -1,131 +1,138 @@
 // Paged result table. Column 1 = accession, then one column per field, one row per record.
-// The number of rows per page is computed from the screen height so a page fills the screen
-// (recomputed on resize). Cells are fixed-width, long values are cut with "…" and shown in
-// full on hover. Values are displayed as they are (objects/arrays as compact JSON).
+// The number of rows per page is computed from the screen height so a page fills the screen (recomputed on resize).
+// Each column is as wide as its longest value (or its name), so values are shown in full; a wide table scrolls left/right. 
 
-const ACC_W = 170;
-const COL_W = 190;
-const ROW_H = 32;     // defaults; replaced by measured values after the first draw
-const HEAD_H = 36;
-const BELOW = 62;     // pager margin + module padding/border + page padding + scrollbar
+const ROW_H = 32;
+const BELOW = 62;// space under the table: pager margin + paddings/borders + scrollbar
 const MIN_ROWS = 5;
+const CELL_PAD = 21;// horizontal space in a cell: 10px padding on each side + 1px border
 
+// transform json cell value to string
 function fmt(value) {
   if (value === undefined) return "";
   if (value !== null && typeof value === "object") return JSON.stringify(value);
   return String(value);
 }
 
-export function createResultTable(container, { columns, rows }) {
-  let rowH = ROW_H;
-  let headH = HEAD_H;
-  let perPage = MIN_ROWS;
-  let start = 0;
+// change the full path name of table columns to onlly the leaf organism.organism_name => organism_name
+const leafName = (path) => path.split(".").pop();
 
-  container.replaceChildren();
-  const scroll = document.createElement("div");
+// cell definition
+function cell(tag, text, title) {
+  const c = document.createElement(tag);
+  c.textContent = text;
+  if (title) c.title = title; // browser tooltip, shown the full path name when hovering (description if new value)
+  return c;
+}
+
+
+// measure per column the widest cell ( value or column name) set that value to be the cell width of all cells in that column  
+function measureColumns(table, columns, rows) {
+  const { fontSize, fontFamily } = getComputedStyle(table);
+  const ctx = document.createElement("canvas").getContext("2d");
+  const widths = [];
+
+  ctx.font = `600 ${fontSize} ${fontFamily}`; // header cells are bold
+  ["accession", ...columns].forEach((name, i) => { widths[i] = ctx.measureText(leafName(name)).width; });
+
+  ctx.font = `400 ${fontSize} ${fontFamily}`;
+  for (const [accession, record] of rows) {
+    widths[0] = Math.max(widths[0], ctx.measureText(accession).width);
+    columns.forEach((col, i) => {
+      widths[i + 1] = Math.max(widths[i + 1], ctx.measureText(fmt(record[col])).width);
+    });
+  }
+  return widths.map((w) => Math.ceil(w) + CELL_PAD);
+}
+
+
+
+export function createResultTable(container, { columns, rows }) {
+  let perPage = MIN_ROWS;
+  let start = 0; // index of the first row on the current page
+
+  // --- build the static parts: table (header + empty body) and pager
+  const table = document.createElement("table");
+  table.className = "result-table";
+
+  const colgroup = document.createElement("colgroup");
+
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  headRow.append(...["accession", ...columns].map((name) => cell("th", leafName(name), name)));
+  thead.appendChild(headRow);
+
+  const tbody = document.createElement("tbody");
+  table.append(colgroup, thead, tbody);
+
+  const scroll = document.createElement("div"); // lets the wide table scroll left/right
   scroll.className = "table-scroll";
-  const pager = document.createElement("div");
-  pager.className = "pager";
+  scroll.appendChild(table);
+
   const prev = document.createElement("button");
   prev.textContent = "Previous";
   const label = document.createElement("span");
   const next = document.createElement("button");
   next.textContent = "Next";
+  const pager = document.createElement("div");
+  pager.className = "pager";
   pager.append(prev, label, next);
-  container.append(scroll, pager);
 
-  const table = document.createElement("table");
-  table.className = "result-table";
-  table.style.width = ACC_W + columns.length * COL_W + "px";
-  const colgroup = document.createElement("colgroup");
-  [ACC_W, ...columns.map(() => COL_W)].forEach((w) => {
+  container.replaceChildren(scroll, pager); // must be on the page before measuring text
+
+  // --- column widths ---
+  const widths = measureColumns(table, columns, rows);
+  table.style.width = widths.reduce((sum, w) => sum + w, 0) + "px";
+  for (const w of widths) {
     const col = document.createElement("col");
     col.style.width = w + "px";
     colgroup.appendChild(col);
-  });
-  const thead = document.createElement("thead");
-  const headRow = document.createElement("tr");
-  ["accession", ...columns].forEach((name) => {
-    const th = document.createElement("th");
-    th.textContent = name;
-    th.title = name;
-    headRow.appendChild(th);
-  });
-  thead.appendChild(headRow);
-  const tbody = document.createElement("tbody");
-  table.append(colgroup, thead, tbody);
-  scroll.appendChild(table);
-
-  function fit() {
-    const top = scroll.getBoundingClientRect().top + window.scrollY;
-    const avail = window.innerHeight - top - pager.offsetHeight - BELOW;
-    return Math.max(MIN_ROWS, Math.floor((avail - headH) / rowH));
   }
 
+  // --- page logic ---
+
+  // Show the rows of the current page and update the pager.
   function draw() {
     const end = Math.min(start + perPage, rows.length);
-    const frag = document.createDocumentFragment();
-    for (let i = start; i < end; i++) {
-      const [accession, record] = rows[i];
-      const tr = document.createElement("tr");
-      const first = document.createElement("td");
-      first.textContent = accession;
-      first.title = accession;
-      tr.appendChild(first);
-      columns.forEach((col) => {
-        const td = document.createElement("td");
-        const text = fmt(record[col]);
-        td.textContent = text;
-        if (text) td.title = text;
-        tr.appendChild(td);
-      });
-      frag.appendChild(tr);
-    }
-    tbody.replaceChildren(frag);
+    tbody.replaceChildren(
+      ...rows.slice(start, end).map(([accession, record]) => {
+        const tr = document.createElement("tr");
+        tr.append(cell("td", accession), ...columns.map((col) => cell("td", fmt(record[col]))));
+        return tr;
+      })
+    );
     const pages = Math.max(1, Math.ceil(rows.length / perPage));
     label.textContent = `Rows ${rows.length ? start + 1 : 0}–${end} of ${rows.length} · page ${Math.floor(start / perPage) + 1}/${pages}`;
     prev.disabled = start === 0;
     next.disabled = end >= rows.length;
   }
 
+  // How many rows fit between the top of the table and the bottom of the screen.
+  // Row and header heights are measured from the real DOM (borders, fonts, zoom).
+  function fit() {
+    const rowH = tbody.firstElementChild?.getBoundingClientRect().height || ROW_H;
+    const headH = thead.getBoundingClientRect().height;
+    const top = scroll.getBoundingClientRect().top + window.scrollY;
+    const avail = window.innerHeight - top - pager.offsetHeight - BELOW - headH;
+    return Math.max(MIN_ROWS, Math.floor(avail / rowH));
+  }
+
   function layout() {
+    if (!tbody.firstElementChild) draw(); // draw a first page so there is a row to measure
     perPage = fit();
     start = Math.floor(start / perPage) * perPage; // keep the first visible row on the page
     draw();
   }
 
-  // Replace the default row/header heights by the real rendered ones (borders, fonts, zoom),
-  // so the page fills the screen exactly.
-  function calibrate() {
-    const tr = tbody.firstElementChild;
-    if (!tr) return;
-    const rh = tr.getBoundingClientRect().height;
-    const hh = thead.getBoundingClientRect().height;
-    if (rh > 0 && (Math.abs(rh - rowH) > 0.5 || Math.abs(hh - headH) > 0.5)) {
-      rowH = rh;
-      headH = hh;
-      layout();
-    }
-  }
-
   prev.addEventListener("click", () => { start = Math.max(0, start - perPage); draw(); });
-  next.addEventListener("click", () => { if (start + perPage < rows.length) { start += perPage; draw(); } });
+  next.addEventListener("click", () => { start += perPage; draw(); }); // disabled on the last page
 
-  let raf = 0;
-  const onResize = () => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(layout);
-  };
-  window.addEventListener("resize", onResize);
-
+  window.addEventListener("resize", layout);
   layout();
-  calibrate();
 
   return {
     destroy: () => {
-      window.removeEventListener("resize", onResize);
-      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", layout);
       container.replaceChildren();
     },
   };
