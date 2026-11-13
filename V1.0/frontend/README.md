@@ -1,62 +1,84 @@
 # Frontend
 
+The frontend is a single-page app in plain HTML, CSS and JavaScript modules (no build step, no framework). It is served by the backend (`backend/main.py`), so one `uvicorn` command starts everything. It talks to the backend only through `js/api.js`.
+
 ## Structure
 
 ```text
 frontend/
 ├── index.html
-├── css/
-│   ├── style.css            # entry point: imports all the files below
+├── css/                     # styles, split per page and per component
+│   ├── style.css            # entry point: imports all the other files
 │   ├── base.css
 │   ├── layout.css
-│   ├── components/          # one file per component
-│   │   ├── query_bar.css
-│   │   ├── mapping_list.css
-│   │   ├── schema_tree.css
-│   │   └── result_table.css
-│   └── pages/               # one file per page
-│       ├── setup_field_mapping.css
-│       └── base_query.css
+│   ├── components/
+│   └── pages/
 └── js/
     ├── app.js               # page loader and menu
     ├── api.js               # all calls to the backend
     ├── store.js             # saved mappings shared by the pages
     ├── ui.js                # small shared UI helper
     ├── import_data.js       # merge an imported JSON file into the table
-    ├── pages/
+    ├── pages/               # one file per page
     │   ├── setup_field_mapping.js
     │   └── base_query.js
-    └── components/
+    └── components/          # reusable blocks used by the pages
         ├── mapping_list.js
         ├── query_bar.js
         ├── result_table.js
         └── schema_tree.js
 ```
 
+| Folder           | Role                                                                          | Details                                              |
+| ---------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `css/`           | Styles of the whole app                                                       | [css/README.md](css/README.md)                       |
+| `js/`            | Page loader, backend calls, shared data, import                               | [js/README.md](js/README.md)                         |
+| `js/pages/`      | The two pages: they assemble the components and handle the search/save/import | [js/pages/README.md](js/pages/README.md)             |
+| `js/components/` | Reusable blocks: search bar, mapping list, schema tree, result table          | [js/components/README.md](js/components/README.md)   |
+
 ## `index.html`
 
-Minimal HTML shell: title, page menu (`#nav`), the area where the current page is displayed (`#view`) and the script `js/app.js`.
-The two pages are separate, and it is easy to add more (see `app.js`).
+Minimal HTML shell: title, page menu (`#nav`), the area where the current page is displayed (`#view`), the stylesheet `css/style.css` and the script `js/app.js`. Everything else is built by JavaScript.
 
-#### `css/`
+## How the scripts work together
 
-Styles of the whole app, split per page and per component (same names as the `js/` files).
-`index.html` links only `style.css`, which imports all the others. The order of the imports matters (a later file wins when two rules are equally specific): base, then layout, then components, then pages.
+### Start
 
-**To add a stylesheet** for a new component or page: create it in `components/` or `pages/` and add one `@import` line in `style.css`.
-Colours and spacing come from the variables in `base.css`, so reuse them (`var(--accent)`, `var(--border)`...) to keep the dark theme working.
+```text
+index.html ─► js/app.js
+               ├─ builds the menu from the list of pages
+               └─ shows the page matching the URL (#/setup-field-mapping or #/base-query)
+                   └─ page.mount() builds the page from its components
+                       └─ store.js loads the saved mappings from the backend (once)
+```
 
-#### `js/`
+### Setup page: search, select, save
 
-All the JavaScript: it builds the pages, handles the interactions and connects the HTML to the Python backend.
+```text
+query_bar ── Search ──► setup_field_mapping.js ── api.js: GET /api/ncbi/structure ──► backend
+                                  │
+                                  └──► schema_tree      the user selects the fields
+                                           │
+                       getPruned()         ▼
+setup_field_mapping.js ──► store.addMapping() ── api.js: POST /api/field-mappings ──► backend
+                                  └─ once the backend confirms ──► mapping_list refreshes
+```
 
+### Base query page: query, import
 
-##### `pages/`
+```text
+mapping_list (selected mapping) + query_bar (taxid) ──► base_query.js
+base_query.js ── api.js: GET /api/ncbi/query ──► backend ──► result_table
 
-Each page exports `id`, `title` and `mount(container)`, and assembles the components.
+Import data ──► import_data.js (merges the file into the rows) ──► result_table redrawn
+                (nothing is sent to the backend)
+```
 
-##### `components/`
+`store.js` is what links the pages: `mapping_list` displays its mappings on both pages, and adding or removing a mapping refreshes the list wherever it is shown.
 
-Reusable building blocks of the two pages.
+## Extending the frontend
 
----
+- **New page**: see [js/pages/README.md](js/pages/README.md#adding-a-page).
+- **New component**: see [js/components/README.md](js/components/README.md#adding-a-component).
+- **New stylesheet**: see [css/README.md](css/README.md#adding-a-stylesheet).
+- **New backend call**: add it to `js/api.js` usage in the page, and the route to the [backend](../backend/routers/README.md).
