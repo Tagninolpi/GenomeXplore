@@ -13,3 +13,18 @@
 .import-report h3 { margin: 0 0 6px; font-size: 13px; }
 .import-report pre { max-height: 200px; overflow: auto; margin: 0 0 14px; font-size: 12px; }
 .import-report form { text-align: right; }
+/* Data types menu next to the "Export raw data" button: a button-like summary that opens a list of checkboxes */
+.datatypes { position: relative; }
+.datatypes summary {
+  display: flex; align-items: center; height: 34px; padding: 0 14px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
+  cursor: pointer; list-style: none; user-select: none;
+}
+.datatypes summary::-webkit-details-marker { display: none; }
+.datatypes summary::after { content: "▾"; margin-left: 8px; color: var(--text-muted); }
+.datatypes .choices {
+  position: absolute; z-index: 10; top: 38px; left: 0; min-width: 240px; max-height: 320px; overflow: auto;
+  padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
+}
+.datatypes label { display: block; white-space: nowrap; cursor: pointer; }
+.datatypes summary:hover { border-color: var(--text-muted); }

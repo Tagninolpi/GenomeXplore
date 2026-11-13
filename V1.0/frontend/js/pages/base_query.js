@@ -25,6 +25,10 @@ export function mount(el) {
         <div class="actionbar">
           <button disabled title="${SOON}">Remove outliers</button>
           <button disabled title="${SOON}">Filter data</button>
+          <details class="datatypes" id="datatypes">
+            <summary title="Raw data types to look for in ENA (one pass per type)">Data types</summary>
+            <div class="choices"></div>
+          </details>
           <button id="export" title="Links to the genome files + representative RNA-seq runs, as one JSON file">Export raw data</button>
           <button id="import">Import data</button>
           <input type="file" id="import-file" accept=".json,application/json" hidden />
@@ -142,17 +146,45 @@ export function mount(el) {
   // Export raw data: send the accessions of the table to the backend, which builds the final export
   // (links to the genome files + representative runs from ENA), then download it as a JSON file.
   const exportButton = el.querySelector("#export");
+
+  // Data types menu: one checkbox per data type known by ENA (list sent by the backend), RNA-Seq ticked at the start.
+  const typesMenu = el.querySelector("#datatypes");
+  const typesChoices = typesMenu.querySelector(".choices");
+  const typesSummary = typesMenu.querySelector("summary");
+  const selectedTypes = () => [...typesChoices.querySelectorAll("input:checked")].map((box) => box.value);
+  function showSelectedTypes() {
+    const types = selectedTypes();
+    typesSummary.textContent = types.length === 0 ? "Data types: none"
+      : types.length <= 2 ? `Data types: ${types.join(", ")}` : `Data types: ${types.length} chosen`;
+  }
+  getJSON("/api/export/data-types").then((types) => {
+    for (const type of types) {
+      const label = document.createElement("label");
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      box.value = type;
+      box.checked = type === "RNA-Seq";
+      label.append(box, " ", type);
+      typesChoices.appendChild(label);
+    }
+    showSelectedTypes();
+  }).catch((err) => setStatus(`Could not load the data types: ${err.message}`, true));
+  typesChoices.addEventListener("change", showSelectedTypes);
+
   exportButton.addEventListener("click", async () => {
     if (!current) { setStatus("Run a search before exporting", true); return; }
+    const dataTypes = selectedTypes();
+    if (dataTypes.length === 0) { setStatus("Choose at least one data type", true); return; }
+    typesMenu.open = false;
     const accessions = current.rows.map(([accession]) => accession);
     // ENA can take several minutes per species, so a big table can take very long
     if (accessions.length > 20 &&
         !confirm(`Export ${accessions.length} genomes? It can take several minutes per species.`)) return;
 
     exportButton.disabled = true;
-    setStatus(`Exporting ${accessions.length} genomes… (links + raw data from ENA, this can take several minutes)`);
+    setStatus(`Exporting ${accessions.length} genomes with ${dataTypes.join(", ")}… (links + raw data from ENA, this can take several minutes)`);
     try {
-      const data = await postJSON("/api/export", { ...searched, accessions });
+      const data = await postJSON("/api/export", { ...searched, accessions, data_types: dataTypes });
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       const link = document.createElement("a"); // a hidden link, clicked to download the file
       link.href = URL.createObjectURL(blob);
