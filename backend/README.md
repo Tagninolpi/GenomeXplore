@@ -64,7 +64,7 @@ The cache is what links workflows 1 and 3: a structure search followed by a quer
 ## `main.py`
 
 Entry point of the web app (`uvicorn backend.main:app`).
-It creates the FastAPI app, registers the routers and mounts the `frontend/` folder as static files, so the same server delivers the pages and the API. The frontend path is computed from the location of the file, so the app works whatever directory it is launched from.
+It creates the FastAPI app, registers the routers and mounts the `frontend/` folder as static files, so the same server delivers the pages and the API.
 
 ## Extending the backend
 
