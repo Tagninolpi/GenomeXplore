@@ -6,7 +6,7 @@
 
 |                         |                                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Developers**          | [First name Last name] and [First name Last name], Master 2 Bioinformatics, Université Claude Bernard Lyon 1                                                         |
+| **Developers**          | ALIOUAT Yasmine and PALANDRE Colin, Master 2 Bioinformatics, Université Claude Bernard Lyon 1                                                         |
 | **Project proposed by** | Bioinformatics and Biostatistics team, *Centre International de Recherche en Infectiologie* (CIRI: CNRS UMR5308, INSERM U1111, UCBL1, ENSL)                          |
 | **Framework**           | University project (UE "Projet Bioinformatique 3"), 2026                                                                                                             |
 | **Version**             | 1.0                                                                                                                                                                  |

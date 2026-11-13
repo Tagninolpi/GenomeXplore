@@ -1,15 +1,1 @@
-{
- "test1": {
-  "total": 901,
-  "taxid": "7711",
-  "refseq": true,
-  "structure": {
-   "accession": 901,
-   "current_accession": 901,
-   "paired_accession": 901,
-   "source_database": 901,
-   "organelle_info": 392,
-   "additional_submitters": 329
-  }
- }
-}
+{}
