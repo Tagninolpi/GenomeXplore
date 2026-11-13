@@ -40,9 +40,21 @@ The installation and the detailed use of each page are described in [How to use]
 
 ## 2. How to use
 
-<!-- TODO: installation method: replace the virtual environment below with Docker or another method -->
+### Install with Docker (recommended)
 
-### Install
+Install [Docker](https://docs.docker.com/engine/install/), then run:
+
+```bash
+docker run -d --name genomexplore -p 8000:8000 \
+  -v genomexplore-mappings:/app/backend/storage \
+  ghcr.io/Tagninolpi/GenomeXplore:1.0.0
+```
+
+Open <http://localhost:8000>. Stop it with `docker stop genomexplore` and start it again with `docker start genomexplore`. Your saved mappings are kept in the `genomexplore-mappings` volume.
+
+To build it yourself instead, clone the repository and run `docker compose up -d --build`.
+
+### Install with virtual environment
 
 Create a virtual environment and install the required libraries (`fastapi`, `uvicorn`, `requests`):
 
@@ -54,7 +66,7 @@ pip install fastapi uvicorn requests
 
 ### Launch
 
-From the project directory (`genomexplore/V1.0`, the folder that contains `backend/` and `frontend/`):
+From the project directory (`genomexplore`, the folder that contains `backend/` and `frontend/`):
 
 ```bash
 uvicorn backend.main:app

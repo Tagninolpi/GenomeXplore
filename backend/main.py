@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from backend.routers import field_mappings, ncbi
 
 # create FastAPi app object (called to start the web program)
-app = FastAPI(title="GenomeXplore")
+app = FastAPI(title="GenomeXplore", version="1.0.0")
 
 # add existing routers (see files in routers)
 # routers are used to not have all the routes in one file, and seperate them per page function 

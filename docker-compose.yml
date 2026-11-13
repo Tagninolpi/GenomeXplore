@@ -1,0 +1,11 @@
+services:
+  genomexplore:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - mappings:/app/backend/storage   # saved mappings survive container re-creation
+    restart: unless-stopped
+
+volumes:
+  mappings:
