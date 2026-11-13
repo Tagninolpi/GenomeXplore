@@ -1,4 +1,4 @@
-import { getJSON } from "../api.js";
+import { getJSON, postJSON } from "../api.js";
 import { ensureLoaded } from "../store.js";
 import { createQueryBar } from "../components/query_bar.js";
 import { createMappingList } from "../components/mapping_list.js";
@@ -25,7 +25,7 @@ export function mount(el) {
         <div class="actionbar">
           <button disabled title="${SOON}">Remove outliers</button>
           <button disabled title="${SOON}">Filter data</button>
-          <button disabled title="${SOON}">Export raw data</button>
+          <button id="export" title="Links to the genome files + representative RNA-seq runs, as one JSON file">Export raw data</button>
           <button id="import">Import data</button>
           <input type="file" id="import-file" accept=".json,application/json" hidden />
         </div>
@@ -37,6 +37,7 @@ export function mount(el) {
   const module = el.querySelector("#module");
   let table = null;
   let current = null; // { columns, rows } of the table on screen
+  let searched = null; // { taxid, refseq } of the search shown in the table (needed by the export)
   let requestId = 0;
 
   function showMessage(text) {
@@ -69,6 +70,7 @@ export function mount(el) {
         if (myRequest !== requestId) return;
         if (table) { table.destroy(); table = null; }
         current = null;
+        searched = { taxid, refseq };
         if (data.total === 0) {
           showMessage("No reports found for this taxid.");
           setStatus("0 records");
@@ -134,6 +136,34 @@ export function mount(el) {
       if (merged.notInTable.length || merged.notInImport.length) showImportReport(merged);
     } catch (err) {
       setStatus(`Import failed: ${err.message}`, true);
+    }
+  });
+
+  // Export raw data: send the accessions of the table to the backend, which builds the final export
+  // (links to the genome files + representative runs from ENA), then download it as a JSON file.
+  const exportButton = el.querySelector("#export");
+  exportButton.addEventListener("click", async () => {
+    if (!current) { setStatus("Run a search before exporting", true); return; }
+    const accessions = current.rows.map(([accession]) => accession);
+    // ENA can take several minutes per species, so a big table can take very long
+    if (accessions.length > 20 &&
+        !confirm(`Export ${accessions.length} genomes? It can take several minutes per species.`)) return;
+
+    exportButton.disabled = true;
+    setStatus(`Exporting ${accessions.length} genomes… (links + raw data from ENA, this can take several minutes)`);
+    try {
+      const data = await postJSON("/api/export", { ...searched, accessions });
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const link = document.createElement("a"); // a hidden link, clicked to download the file
+      link.href = URL.createObjectURL(blob);
+      link.download = `genomexplore_export_${searched.taxid}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      setStatus(`Exported ${data.species.length} species · ${data.problems.length} problems`, data.problems.length > 0);
+    } catch (err) {
+      setStatus(`Export failed: ${err.message}`, true);
+    } finally {
+      exportButton.disabled = false;
     }
   });
 

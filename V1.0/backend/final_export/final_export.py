@@ -8,8 +8,8 @@ Nothing is downloaded, only the links.
 import time
 from datetime import datetime
 
-from artifact_links.scripts_artifact_links.export import PAUSE, collect_links, write_export
-from raw_data.scripts_raw_data.raw_data_export import collect_raw_data
+from backend.artifact_links.export import PAUSE, collect_links, write_export
+from backend.raw_data.raw_data_export import collect_raw_data
 
 FORMAT_NAME = "genomexplore-export"
 FORMAT_VERSION = "1.0"  # to change when the structure of the file changes

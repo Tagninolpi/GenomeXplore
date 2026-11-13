@@ -7,10 +7,10 @@ For each species and each data type (one "pass" per data type), it gets the runs
 import time
 from datetime import datetime
 
-from artifact_links.scripts_artifact_links.common import LinkError
-from artifact_links.scripts_artifact_links.export import write_export  # same way of writing the file
-from raw_data.scripts_raw_data.ena_runs import ena_runs
-from raw_data.scripts_raw_data.select_runs import EXCLUDED_SOURCES, MAX_RUNS, MIN_BASES, select_runs
+from backend.artifact_links.common import LinkError
+from backend.artifact_links.export import write_export  # same way of writing the file
+from backend.raw_data.ena_runs import ena_runs
+from backend.raw_data.select_runs import EXCLUDED_SOURCES, MAX_RUNS, MIN_BASES, select_runs
 
 FORMAT_NAME = "genomexplore-raw-data"
 FORMAT_VERSION = "1.0"  # to change when the structure of the file changes

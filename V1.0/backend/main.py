@@ -3,7 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from backend.routers import field_mappings, ncbi
+from backend.routers import export, field_mappings, ncbi
 
 # create FastAPi app object (called to start the web program)
 app = FastAPI(title="GenomeXplore")
@@ -12,6 +12,7 @@ app = FastAPI(title="GenomeXplore")
 # routers are used to not have all the routes in one file, and seperate them per page function 
 app.include_router(ncbi.router)
 app.include_router(field_mappings.router)
+app.include_router(export.router)  # "Export raw data" button
 
 # find the front end repo
 # start in this file, front end = ../../frontend

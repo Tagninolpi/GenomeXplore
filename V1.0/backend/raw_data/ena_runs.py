@@ -6,7 +6,7 @@ so one request covers the three databases. GSA (China) is not included.
 
 import time
 
-from artifact_links.scripts_artifact_links.common import ATTEMPTS, LinkError, fetch
+from backend.artifact_links.common import ATTEMPTS, LinkError, fetch
 
 SOURCE = "ENA"
 SEARCH_URL = "https://www.ebi.ac.uk/ena/portal/api/search"

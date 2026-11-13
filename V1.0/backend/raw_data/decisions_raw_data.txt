@@ -12,7 +12,7 @@ General choices :
 - We get the runs from ENA, not directly from SRA.
   Why: SRA (NCBI), ENA (EBI) and DDBJ (Japan) exchange their data every day, so ENA also has the runs of SRA and DDBJ. For the cat RNA-seq, ENA gives 1,873 runs from SRA (SRR), 69 from DDBJ (DRR) and 58 from ENA (ERR). ENA's API gives the metadata and the links to the files in one simple JSON answer. SRA's own API answers in XML, needs several steps and gives no direct link to FASTQ files.
 
-- We reuse fetch and LinkError from artifact_links/scripts_artifact_links/common.py.
+- We reuse fetch and LinkError from V1.0/backend/artifact_links/common.py.
   Why: the requests need the same things as for the genomes (a time limit, trying again when the server has a problem, clear messages), so it is written only once.
 
 - We search by the exact taxid of the species (tax_eq).

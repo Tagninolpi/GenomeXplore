@@ -1,0 +1,140 @@
+Decisions taken during the constraction of artifact_links/ :
+
+Goal: for each genome, give the links to its files (genome sequence, annotation, proteins...) so researchers can download them later.
+
+
+
+General choices (all three databases) :
+
+
+- We never download the genome files, only their links.
+
+- For each genome, we open its folder page and read the list of files that are really inside.
+  Why: not every genome has every file for example, many genomes have no annotation. If we guessed the links, we could give links to files that don't exist. The folder page is just a short list of names, so reading it is not downloading anything big.
+
+- When a file doesn't exist, we write None (null in JSON). We never invent a link.
+
+- Every database uses the same 11 labels: genome_fasta, gff, gtf, cds, rna, protein, feature_table, assembly_report, assembly_stats, annotation_report, md5.
+  Why: each database names its files differently (the annotation is "..._genomic.gff.gz" at NCBI, "....gff.gz" at GWH, "genes.gff3.gz" at Ensembl).
+
+- I added a feature_table label.
+  Why: NCBI and GWH both have this file (a table listing every gene and its position), and it is small compared to the genome.
+
+- We always keep the full accession, with its version number (.1, .2...).
+
+- If someone gives an accession without a version, we let the database tell us the full one, and we give it back with the links.
+  Why: NCBI and Ensembl then choose the latest version. The person must know which version they got (for example GCF_000002285 became GCF_000002285.5 for the dog).
+
+- For GWH, we never add ".1" to an accession that has no version.
+  Why: old GWH accessions really have no version number. Adding one would make a wrong accession.
+
+- When something goes wrong, the scripts give a clear message in plain words (LinkError), instead of a Python error.
+  Why: "GCF_999999999.1 was not found on NCBI" is understandable, but "KeyError: 'reports'" means nothing to a user.
+
+- We check that the accession looks right before asking the database.
+  Why: something like "hello" can be refused straight away, without wasting a request.
+
+- We wait at most 30 seconds for an answer.
+  Why: without a limit, the script could wait forever if a database never answers.
+
+- We try each request up to 3 times before giving up (waiting 2 seconds, then 4 seconds).
+  Why: GWH's server sometimes drops the connection for no reason. The same genome fails once and works the next time. In my tests, 5 genomes out of 15 failed without this, and 20 out of 20 worked with it. We don't try again when the page doesn't exist (error 404), because trying again wouldn't change anything.
+
+- One script per database (ncbi_links.py, gwh_links.py, ensembl_links.py) plus common.py for what they share.
+  Why: each database works differently, so separate files are easier to read and fix. If a database changes (Ensembl changed recently), we only fix its own file. The Book of Specifications describes the backend the same way (one module per database). common.py holds what is the same for all three (the labels, the error messages, reading a page), so it is written only once.
+
+- Each script can receive an extra piece of information that Colin's search results already have (the assembly name for NCBI, the folder link for GWH and Ensembl).
+  Why: then the script doesn't need to ask the database again. That saves one request per genome, which matters because NCBI only allows about 5 requests per second. If the extra information is not given (for example when someone types one accession by hand), the script finds it itself.
+
+- Each script also gives the species of the genome. Why: the export is one file for the whole selection for now, so each genome needs its species name to find all the genomes of one species.
+When the extra information from Colin's results is given, the species must be given too otherwhise the script doesn't ask the database anything, so it can't find the species by itself.
+
+
+NCBI :
+
+
+- We build the folder link ourselves from the accession and the assembly name.
+  Why: NCBI's API gives a lot of information but no links to files. The folder link always follows the same rule (the accession number is cut into groups of 3 digits), so we can build it.
+
+- We look for the exact file names (accession + assembly name + ending).
+  Why: at first, I only looked at the end of the names. The CDS file ("..._cds_from_genomic.fna.gz") also ends with "_genomic.fna.gz", so it was taken by mistake as the genome file. Looking for the exact name fixed this bug.
+
+- We ask NCBI to show all versions of a genome, not only the newest.
+  Why: NCBI hides older versions by default, and then says "not found", even though they still exist with all their files (for example the dog's CanFam3.1).
+
+- When no version is given, we keep the version marked "current".
+  Why: when asked for all versions, NCBI lists all of them. The current one is the one people normally would want.
+
+
+GWH :
+
+
+- gwh_links.py only handles genomes submitted directly to GWH (accessions starting with GWH).
+  Why: GWH also keeps copies of NCBI genomes (GCA_/GCF_), but its copies usually only have the genome sequence. NCBI's own folder has more files, so for those genomes we use ncbi_links.py.
+
+- We use GWH's search service, not its public API.
+  Why: the public API doesn't know recent genomes (it found nothing for a 2025 grouper genome) and refuses accessions with a version number. The search service knows all of them, and it is the same one Colin uses, so both parts see the same data.
+
+- We don't trust the file links given by GWH's API.
+  Why: for the dog, the API gave links for the GFF, RNA and proteins, but they pointed to the folder, because these files don't exist. Reading the real folder showed only 2 files.
+
+- We remove the HTML from the accession given by GWH's search.
+  Why: the search gives the accession inside a web link (<a href='...'>GWH...</a>). We need the plain accession.
+
+- For GWH, gtf and the three report labels are always None.
+  Why: GWH never provides these files.
+
+
+ENSEMBL :
+
+
+- We use softmasked.fa.bgz for genome_fasta.
+  Why: Ensembl has the genome three times, differing in how repeated regions of DNA are marked (unmasked = not marked, softmasked = in lowercase letters, hardmasked = replaced by N). NCBI's genome file is soft-masked, so the same label means the same kind of file in both databases.
+
+- For the GFF and GTF, we use the .gz files, not the .bgz ones.
+  Why: they have the same content, compressed in two slightly different ways. .gz is the usual one, which most tools expect.
+
+- For the genome, RNA (cdna) and proteins (pep), we use .bgz.
+  Why: these only exist as .bgz. Tools that read .gz can read .bgz too.
+
+- We don't list the .fai, .gzi and .csi files.
+  Why: they are indexes, they are not data on their own.
+
+- For md5, we keep the md5sum.txt next to the genome (in genome/).
+  Why: Ensembl has two md5sum.txt files (one per sub-folder), and the md5 label can only hold one link.
+
+- For Ensembl, cds, feature_table and the three report labels are always None.
+  Why: Ensembl doesn't provide these files.
+
+- We accept GCA_ and GCF_ accessions.
+  Why: Ensembl mostly uses GCA_, but for some genomes it reuses NCBI's RefSeq annotation, and then the accession starts with GCF_.
+
+- When one genome has several annotations in Ensembl, we take Ensembl's own annotation, unless a specific folder is given.
+  Why: some genomes have one annotation made by Ensembl and another made by a different team, each in its own folder. Ensembl's own annotation is made the same way for all species, so it is easier to compare. Another one can still be chosen by giving its folder link.
+
+- We keep Ensembl genomes even when the same assembly is at NCBI.
+  Why: Ensembl annotates the sequence itself, with its own method (for the cat: 19,209 genes at Ensembl, 20,453 at NCBI RefSeq). Same DNA sequence, but different annotation files, so it is not a useless duplicate.
+
+
+Export :
+
+
+- The export is one JSON file for the whole selection, and each genome in it has its species name. We don't make one file per species, even though the project subject says "JSON par espèce".
+  Why: one file is simpler to make and to use: a researcher or a pipeline only has to open one file to get all the links of their selection. Since every genome has its species name, it is still easy to find all the genomes of one species, and splitting the file into one file per species later would only take a few lines of code if our supervisors prefer that. This is a choice to check with them.
+
+- Genomes that fail are listed in "problems" with their message, and the export carries on with the others. Why: one wrong accession or one database not answering shouldn't stop the links of all the other genomes, and the researcher can see what is missing and why.
+
+-The file starts with its format name, its version and the date it was made. Why: for exports to be versioned and self-descriptive, and links can change over time, so the date tells when they were checked.
+
+- Each genome keeps the name of its database (source). Why: the same accession can be in two databases with different files (the cat GCA_018350175.1 is at NCBI and at Ensembl with different annotations).
+
+- We wait 0.4 seconds between two genomes. Why: NCBI allows about 5 requests per second and we use 2 per genome.
+
+
+Organisation :
+
+- I work on the branch feature/artifact-links.
+
+- The scripts are in artifact_links/
+
+- The test notebooks in test_artifact_links/ are pushed, with their results visible.

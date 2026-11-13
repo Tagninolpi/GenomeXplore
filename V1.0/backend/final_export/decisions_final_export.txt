@@ -1,0 +1,44 @@
+Decisions taken during the construction of final_export/ :
+
+Goal: put everything in one JSON file: for each species of the selection, its genomes (with the links to their files) and its raw data runs.
+
+
+
+General choices :
+
+
+- The genomes and the raw data are joined by the taxid of the species.
+  Why: the raw reads belong to a species, not to one genome. A run on ENA has no link to a genome accession (GCF_..., GWH...), but both have the taxid: NCBI gives it in organism.tax_id, Ensembl and GWH in taxonomy_id.
+
+- The file is organised by species: each species has its taxid, its name, its list of genomes and its raw data.
+
+- The runs are searched only once per species, even if the species has several genomes.
+  Why: for the cat, the NCBI and the Ensembl genome would get exactly the same runs, so it would be the same request twice and the same runs written twice in the file.
+
+- A genome given without a taxid is put in "problems" (step "input") and the export carries on.
+  Why: without a taxid, we can't know which species it belongs to, so we can't join it to the raw data. I didn't try to guess the taxid from the species name because names can be written in different ways.
+
+- If no species name is given, we take the one found by the link scripts.
+  Why: the databases give the species name with the genome, so the user doesn't have to write it.
+
+
+
+Problems :
+
+
+- All the problems are in one list, and each one says at which step it happened: "input", "links" or "raw data".
+  Why: the problems come from different parts (a missing taxid, a genome not found on NCBI, ENA not answering), and the step tells where to look. One wrong genome never stops the others.
+
+
+
+The file :
+
+
+- The file starts with its format name ("genomexplore-export"), its version (1.0) and the date it was made, like the two other exports.
+  Why: for exports to be versioned and self-descriptive. The links and the number of runs change over time, so the date tells when they were checked.
+
+- The way the runs were chosen (method, data types, maximum number of runs, minimum number of bases, sources removed) is written once at the top, in "raw_data_selection".
+  Why: the subject asks the export to explain the selection method, and the settings are the same for all the species, so there is no need to repeat them.
+
+- We wait 0.4 seconds between two genomes, like in artifact_links/export.py.
+  Why: NCBI allows about 5 requests per second.
