@@ -25,11 +25,7 @@ export function mount(el) {
         <div class="actionbar">
           <button disabled title="${SOON}">Remove outliers</button>
           <button disabled title="${SOON}">Filter data</button>
-          <details class="datatypes" id="datatypes">
-            <summary title="Raw data types to look for in ENA (one pass per type)">Data types</summary>
-            <div class="choices"></div>
-          </details>
-          <button id="export" title="Links to the genome files + representative RNA-seq runs, as one JSON file">Export raw data</button>
+          <button id="export" title="Links to the genome files + representative raw data runs (RNA-Seq...), as one JSON file">Export raw data</button>
           <button id="import">Import data</button>
           <input type="file" id="import-file" accept=".json,application/json" hidden />
         </div>
@@ -147,39 +143,89 @@ export function mount(el) {
   // (links to the genome files + representative runs from ENA), then download it as a JSON file.
   const exportButton = el.querySelector("#export");
 
-  // Data types menu: one checkbox per data type known by ENA (list sent by the backend), RNA-Seq ticked at the start.
-  const typesMenu = el.querySelector("#datatypes");
-  const typesChoices = typesMenu.querySelector(".choices");
-  const typesSummary = typesMenu.querySelector("summary");
-  const selectedTypes = () => [...typesChoices.querySelectorAll("input:checked")].map((box) => box.value);
-  function showSelectedTypes() {
-    const types = selectedTypes();
-    typesSummary.textContent = types.length === 0 ? "Data types: none"
-      : types.length <= 2 ? `Data types: ${types.join(", ")}` : `Data types: ${types.length} chosen`;
+  // The data types known by ENA (RNA-Seq, ChIP-Seq, Hi-C...), sent by the backend, RNA-Seq first.
+  let knownTypes = ["RNA-Seq"];
+  getJSON("/api/export/data-types")
+    .then((types) => { knownTypes = ["RNA-Seq", ...types.filter((type) => type !== "RNA-Seq")]; })
+    .catch((err) => setStatus(`Could not load the data types: ${err.message}`, true));
+
+  // Window opened by the export button: says what the file will contain and asks which raw data types to look for.
+  // Resolves with the chosen data types, or null when the user cancels.
+  function askExportOptions(nGenomes) {
+    return new Promise((resolve) => {
+      const dialog = document.createElement("dialog");
+      dialog.className = "export-dialog";
+      dialog.innerHTML = `
+        <button type="button" class="close" title="Close without exporting" aria-label="Close">×</button>
+        <h3>Which kind of raw data?</h3>
+        <p class="hint">Each type is searched separately, so more types take longer.</p>
+        <p>The file will contain, for the ${nGenomes} genome(s) of the table, the links to the genome files
+           and, for each species, up to 10 representative sequencing runs from ENA with the links to their reads.</p>
+        <div class="choices"></div>
+        <p class="warning" hidden></p>
+        <form method="dialog">
+          <button type="button" class="reset" title="Untick every data type">Reset</button>
+          <button value="export" class="primary">Export</button>
+        </form>`;
+      const choices = dialog.querySelector(".choices");
+      const warning = dialog.querySelector(".warning");
+      const longWarning = `${nGenomes} genomes: this can take a long time (up to several minutes per species).`;
+      for (const type of knownTypes) {
+        const label = document.createElement("label");
+        const box = document.createElement("input");
+        box.type = "checkbox";
+        box.value = type;
+        box.checked = type === "RNA-Seq";
+        label.append(box, " ", type);
+        choices.appendChild(label);
+      }
+      const chosen = () => [...choices.querySelectorAll("input:checked")].map((box) => box.value);
+
+      // Reset: untick every data type, the window stays open
+      dialog.querySelector(".reset").addEventListener("click", () => {
+        for (const box of choices.querySelectorAll("input")) box.checked = false;
+        warning.hidden = nGenomes <= 20; // remove "Choose at least one data type", keep the long-export warning
+        if (nGenomes > 20) warning.textContent = longWarning;
+      });
+      // close without exporting
+      dialog.querySelector(".close").addEventListener("click", () => dialog.close("cancel"));
+        
+      // click outside the window (on the dark background): close without exporting.
+      dialog.addEventListener("click", (event) => {
+        if (event.target !== dialog) return;
+        const box = dialog.getBoundingClientRect();
+        const outside = event.clientX < box.left || event.clientX > box.right
+                     || event.clientY < box.top || event.clientY > box.bottom;
+        if (outside) dialog.close("cancel");
+      });
+
+      // ENA can take several minutes per species, so a big table can take very long
+      if (nGenomes > 20) {
+        warning.textContent = longWarning;
+        warning.hidden = false;
+      }
+      // refuse to close with "Export" when no data type is ticked
+      dialog.querySelector("form").addEventListener("submit", (event) => {
+        if (event.submitter?.value === "export" && chosen().length === 0) {
+          event.preventDefault();
+          warning.textContent = "Choose at least one data type.";
+          warning.hidden = false;
+        }
+      });
+      dialog.addEventListener("close", () => {
+        resolve(dialog.returnValue === "export" ? chosen() : null);
+        dialog.remove();
+      });
+      el.appendChild(dialog);
+      dialog.showModal();
+    });
   }
-  getJSON("/api/export/data-types").then((types) => {
-    for (const type of types) {
-      const label = document.createElement("label");
-      const box = document.createElement("input");
-      box.type = "checkbox";
-      box.value = type;
-      box.checked = type === "RNA-Seq";
-      label.append(box, " ", type);
-      typesChoices.appendChild(label);
-    }
-    showSelectedTypes();
-  }).catch((err) => setStatus(`Could not load the data types: ${err.message}`, true));
-  typesChoices.addEventListener("change", showSelectedTypes);
 
   exportButton.addEventListener("click", async () => {
     if (!current) { setStatus("Run a search before exporting", true); return; }
-    const dataTypes = selectedTypes();
-    if (dataTypes.length === 0) { setStatus("Choose at least one data type", true); return; }
-    typesMenu.open = false;
     const accessions = current.rows.map(([accession]) => accession);
-    // ENA can take several minutes per species, so a big table can take very long
-    if (accessions.length > 20 &&
-        !confirm(`Export ${accessions.length} genomes? It can take several minutes per species.`)) return;
+    const dataTypes = await askExportOptions(accessions.length);
+    if (dataTypes === null) return; // cancelled
 
     exportButton.disabled = true;
     setStatus(`Exporting ${accessions.length} genomes with ${dataTypes.join(", ")}… (links + raw data from ENA, this can take several minutes)`);

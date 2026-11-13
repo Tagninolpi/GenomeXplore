@@ -13,18 +13,26 @@
 .import-report h3 { margin: 0 0 6px; font-size: 13px; }
 .import-report pre { max-height: 200px; overflow: auto; margin: 0 0 14px; font-size: 12px; }
 .import-report form { text-align: right; }
-/* Data types menu next to the "Export raw data" button: a button-like summary that opens a list of checkboxes */
-.datatypes { position: relative; }
-.datatypes summary {
-  display: flex; align-items: center; height: 34px; padding: 0 14px;
-  border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
-  cursor: pointer; list-style: none; user-select: none;
+/* Window opened by the "Export raw data" button: what the file contains + choice of the raw data types */
+.export-dialog {
+  max-width: 540px; padding: 16px 20px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);
 }
-.datatypes summary::-webkit-details-marker { display: none; }
-.datatypes summary::after { content: "▾"; margin-left: 8px; color: var(--text-muted); }
-.datatypes .choices {
-  position: absolute; z-index: 10; top: 38px; left: 0; min-width: 240px; max-height: 320px; overflow: auto;
-  padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);
+.export-dialog h3 { margin: 0 0 4px; padding-right: 28px; font-size: 18px; }
+.export-dialog .close {
+  position: absolute; top: 10px; right: 12px; width: 28px; height: 28px; padding: 0;
+  border: none; background: none; font-size: 20px; line-height: 1; color: var(--text-muted);
 }
-.datatypes label { display: block; white-space: nowrap; cursor: pointer; }
-.datatypes summary:hover { border-color: var(--text-muted); }
+.export-dialog .close:hover { color: var(--text); }
+.export-dialog p { margin: 0 0 10px; }
+.export-dialog .hint { color: var(--text-muted); font-size: 13px; }
+.export-dialog .choices {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 2px 12px;
+  max-height: 220px; overflow: auto; margin-bottom: 10px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.export-dialog label { white-space: nowrap; cursor: pointer; font-size: 13px; }
+.export-dialog .warning { color: var(--danger); font-size: 13px; }
+.export-dialog form { display: flex; justify-content: flex-end; gap: 8px; margin: 0; }
+.export-dialog form button { height: 32px; padding: 0 14px; }
+.export-dialog .primary { background: var(--accent); border-color: var(--accent); color: #fff; }
