@@ -47,7 +47,7 @@ Install [Docker](https://docs.docker.com/engine/install/), then run:
 ```bash
 docker run -d --name genomexplore -p 8000:8000 \
   -v genomexplore-mappings:/app/backend/storage \
-  ghcr.io/Tagninolpi/GenomeXplore:1.0.0
+  ghcr.io/tagninolpi/genomexplore:1.0.0
 ```
 
 Open <http://localhost:8000>. Stop it with `docker stop genomexplore` and start it again with `docker start genomexplore`. Your saved mappings are kept in the `genomexplore-mappings` volume.
