@@ -50,7 +50,7 @@ docker run -d --name genomexplore -p 8000:8000 \
   ghcr.io/tagninolpi/genomexplore:1.0.0
 ```
 
-Open <http://localhost:8000>. Stop it with `docker stop genomexplore` and start it again with `docker start genomexplore`. Your saved mappings are kept in the `genomexplore-mappings` volume.
+Open <http://127.0.0.1:8000/>. Stop it with `docker stop genomexplore` and start it again with `docker start genomexplore`. Your saved mappings are kept in the `genomexplore-mappings` volume.
 
 To build it yourself instead, clone the repository and run `docker compose up -d --build`.
 
