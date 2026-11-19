@@ -9,7 +9,7 @@ on:
           - "!backend/**/*.md"
           - "!backend/**/*.json"
           - "!frontend/js/**/*.md"
-          - ".github/workflows/codeql.yml"
+          - ".github/workflows/sast.yml"
   pull_request:
     branches: [main]
     paths:
@@ -18,7 +18,7 @@ on:
           - "!backend/**/*.md"
           - "!backend/**/*.json"
           - "!frontend/js/**/*.md"
-          - ".github/workflows/codeql.yml"
+          - ".github/workflows/sast.yml"
 
 jobs:
   analyze:
